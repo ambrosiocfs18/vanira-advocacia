@@ -1,0 +1,14 @@
+# Arquivos-fonte / de trabalho (não fazem parte do site publicado)
+Animações_de_imagens_para_site_*.mp4
+ChatGPT Image*.png
+WhatsApp Image*.jpeg
+COPY.txt
+DESIGN SYSTEM.txt
+
+# Ferramentas locais
+.claude/
+.vercel/
+
+# Sistema
+Thumbs.db
+.DS_Store

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vanira Advocacia — Defesa jurídica do produtor rural em Uberaba/MG e todo o Triângulo Mineiro. Dívida rural, recuperação judicial e extrajudicial.">
+<title>Vanira Advocacia — Defesa Jurídica do Produtor Rural | Uberaba/MG</title>
+
+<!--
+  ============================================================================
+  VANIRA ADVOCACIA — Landing page (arquivo único, sem dependências externas)
+  ----------------------------------------------------------------------------
+  Tokens de cor, tipografia e espaçamento seguem o Design System fornecido.
+  Fontes: os nomes do Design System (Cormorant Garamond / Poppins) são pedidos
+  primeiro; como não há dependências externas permitidas, há fallback para
+  fontes de sistema (Georgia / system-ui) sem quebra de layout.
+
+  >>> ANTES DE PUBLICAR, substituir os campos [PLACEHOLDER] da copy e a
+      constante WHATSAPP_NUMBER no <script> ao final do arquivo. <<<
+  ============================================================================
+-->
+
+<style>
+  /* ---------- RESET ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+  input, textarea, select { font: inherit; }
+
+  /* ---------- TOKENS (Design System) ---------- */
+  :root {
+    /* Cores principais */
+    --verde-profundo: #003018;
+    --verde-escuro:   #002418;
+    --dourado:        #C6912A;
+    --dourado-claro:  #E8B237;
+    /* Secundária (usada com parcimônia) */
+    --rosa-suave:     #FDB2D1;
+    --rosa-cartao:    #F7C5D3;
+    --rosa-claro:     #FCE4F0;
+    /* Suporte / neutros */
+    --branco:         #FFFFFF;
+    --off-white:      #FAF8F6;
+    --grafite:        #1C1C1C;
+    --cinza-medio:    #6B6B6B;
+    --cinza-borda:    #E6E6E6;
+    --whatsapp:       #25D366;
+    --whatsapp-hover: #1EBE5A;
+
+    /* Tipografia */
+    --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body: 'Poppins', 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    /* Escala de espaçamento (base 8px) */
+    --sp-1: 4px;  --sp-2: 8px;  --sp-3: 16px; --sp-4: 24px;
+    --sp-5: 32px; --sp-6: 48px; --sp-7: 64px; --sp-8: 96px;
+
+    /* Raios */
+    --r-btn: 8px; --r-card: 16px; --r-img: 24px; --r-pill: 9999px;
+
+    /* Sombras (tingidas de verde) */
+    --sh-card: 0 2px 8px rgba(0,48,24,0.06);
+    --sh-hover: 0 8px 24px rgba(0,48,24,0.12);
+    --sh-widget: 0 4px 16px rgba(0,0,0,0.20);
+
+    --header-h: 72px;
+    --maxw: 1160px;
+
+    /* Curvas de easing (Emil Kowalski — as nativas do CSS são fracas demais) */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  /* ---------- BASE ---------- */
+  body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--grafite);
+    background: var(--branco);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--sp-4);
+  }
+
+  /* Tipografia display — serifada com tracking levemente fechado (ar premium) */
+  h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; font-weight: 600; letter-spacing: -0.01em; }
+  ::selection { background: rgba(207,157,83,0.28); }
+
+  section { padding-block: 56px; }            /* mobile */
+  .section-head { max-width: 640px; margin-bottom: var(--sp-5); }
+  .section-head.center { margin-inline: auto; text-align: center; }
+
+  /* Eyebrow em verde nas seções claras (dourado sobre branco reprova em WCAG AA).
+     O dourado fica na régua/detalhes, preservando a identidade verde+dourado. */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--verde-profundo);
+    margin-bottom: var(--sp-2);
+  }
+  .eyebrow.on-dark { color: var(--dourado); }
+
+  h2 { font-size: 28px; }                     /* mobile */
+  h3 { font-size: 22px; font-weight: 500; }
+  .lead { font-size: 18px; color: var(--cinza-medio); }
+  p + p { margin-top: var(--sp-3); }
+
+  /* Divisória dourada fina sob títulos de seção */
+  .rule {
+    width: 56px; height: 3px; border-radius: var(--r-pill);
+    background: linear-gradient(90deg, var(--dourado), var(--dourado-claro));
+    margin-top: var(--sp-3);
+  }
+  .center .rule { margin-inline: auto; }
+
+  /* ---------- BOTÕES ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: var(--sp-2);
+    min-height: 48px;                          /* área de toque >= 44px */
+    padding: 14px 32px;
+    border-radius: var(--r-btn);
+    font-weight: 600; font-size: 15px; letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background .2s var(--ease-out), transform .18s var(--ease-out), box-shadow .2s var(--ease-out), color .2s var(--ease-out);
+    text-align: center;
+  }
+  .btn:focus-visible { outline: 3px solid var(--dourado-claro); outline-offset: 3px; }
+  /* Feedback de pressão — o botão "escuta" o toque (Emil) */
+  .btn:active { transform: scale(0.97); }
+
+  /* Primário — dourado, texto verde */
+  .btn--primary { background: var(--dourado); color: var(--verde-profundo); }
+
+  /* WhatsApp — verde de reconhecimento, texto branco */
+  .btn--whats { background: var(--whatsapp); color: #fff; }
+  .btn--whats svg { flex: 0 0 auto; }
+
+  /* Secundário / fantasma — borda dourada */
+  .btn--ghost { border: 1.5px solid var(--dourado); background: transparent; color: var(--grafite); }
+  .on-dark .btn--ghost, .btn--ghost.on-dark { color: #fff; }
+  .on-dark .btn--ghost:hover, .btn--ghost.on-dark:hover { background: rgba(207,157,83,0.22); }
+
+  /* Estados de hover só onde há mouse fino — evita "grudar" no toque */
+  @media (hover: hover) and (pointer: fine) {
+    .btn--primary:hover { background: linear-gradient(90deg, var(--dourado), var(--dourado-claro)); transform: translateY(-2px); box-shadow: var(--sh-hover); }
+    .btn--whats:hover { background: var(--whatsapp-hover); transform: translateY(-2px); box-shadow: var(--sh-hover); }
+    .btn--ghost:hover { background: rgba(207,157,83,0.12); transform: translateY(-2px); }
+  }
+
+  /* Link com seta */
+  .link-arrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; cursor: pointer;
+    font-weight: 600; color: var(--verde-profundo);
+    border-bottom: 2px solid transparent; width: max-content;
+    transition: gap .2s var(--ease-out), border-color .2s var(--ease-out), color .2s var(--ease-out);
+  }
+  .link-arrow:hover, .link-arrow:focus-visible { gap: 14px; border-color: var(--dourado); }
+  .link-arrow:focus-visible { outline: 3px solid var(--dourado-claro); outline-offset: 3px; border-radius: 2px; }
+  .on-dark .link-arrow, .link-arrow.on-dark { color: var(--dourado-claro); }
+
+  /* ---------- SKIP LINK ---------- */
+  .skip-link {
+    position: absolute; left: var(--sp-3); top: -60px;
+    background: var(--dourado); color: var(--verde-profundo);
+    padding: 10px 18px; border-radius: var(--r-btn); font-weight: 600; z-index: 200;
+    transition: top .2s ease;
+  }
+  .skip-link:focus { top: var(--sp-3); }
+
+  /* ---------- HEADER ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--branco);
+    border-bottom: 1px solid var(--cinza-borda);
+    transition: box-shadow .25s ease, background .25s ease;
+  }
+  .site-header.scrolled { box-shadow: 0 6px 20px rgba(0,48,24,0.08); }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--sp-4); min-height: var(--header-h);
+  }
+  .brand { display: inline-flex; align-items: center; min-height: 44px; }
+  .brand img { height: 54px; width: auto; display: block; }
+  .brand:focus-visible { outline: 2px solid var(--dourado); outline-offset: 4px; border-radius: 4px; }
+
+  /* Navegação */
+  .primary-nav { display: none; }
+  .nav-list { display: flex; align-items: center; gap: var(--sp-4); }
+  .nav-list > li { position: relative; }
+  .nav-list a, .nav-list .nav-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 44px; color: var(--grafite);
+    font-size: 15px; font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .nav-list a:hover, .nav-list a:focus-visible,
+  .nav-list .nav-toggle:hover, .nav-list .nav-toggle:focus-visible { color: var(--verde-profundo); border-color: var(--dourado); }
+  .nav-list a:focus-visible, .nav-list .nav-toggle:focus-visible { outline: 2px solid var(--dourado); outline-offset: 4px; }
+
+  /* Dropdown Áreas de Atuação */
+  .has-dropdown .caret { transition: transform .2s ease; }
+  .has-dropdown[aria-expanded-group="true"] .caret { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute; top: 100%; left: 0; min-width: 300px;
+    background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
+    box-shadow: var(--sh-hover); padding: var(--sp-2);
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  }
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown,
+  .dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a {
+    display: block; color: var(--grafite); min-height: 44px; align-items: center;
+    padding: 10px 14px; border-radius: var(--r-btn); border-bottom: none; font-weight: 500;
+  }
+  .dropdown a:hover, .dropdown a:focus-visible { background: var(--off-white); color: var(--verde-profundo); border-color: transparent; }
+
+  .header-cta { display: none; }
+
+  /* Hambúrguer */
+  .nav-burger {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: var(--r-btn);
+    color: var(--verde-profundo);
+  }
+  .nav-burger:focus-visible { outline: 2px solid var(--dourado); outline-offset: 2px; }
+  .nav-burger svg { width: 26px; height: 26px; }
+  .nav-burger .icon-close { display: none; }
+  .nav-burger[aria-expanded="true"] .icon-open { display: none; }
+  .nav-burger[aria-expanded="true"] .icon-close { display: block; }
+
+  /* Menu mobile (painel) */
+  .mobile-nav {
+    position: fixed; inset: var(--header-h) 0 0 0; z-index: 99;
+    background: var(--branco);
+    padding: var(--sp-4);
+    transform: translateX(100%); transition: transform .3s ease;
+    overflow-y: auto;
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav ul { display: flex; flex-direction: column; }
+  .mobile-nav > ul > li { border-bottom: 1px solid var(--cinza-borda); }
+  .mobile-nav a, .mobile-nav .m-sub-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; min-height: 52px; color: var(--grafite); font-size: 17px; font-weight: 500;
+  }
+  .mobile-nav .m-sub { padding-left: var(--sp-3); max-height: 0; overflow: hidden; transition: max-height .25s ease; }
+  .mobile-nav .m-sub.open { max-height: 320px; }
+  .mobile-nav .m-sub a { font-size: 15px; color: var(--cinza-medio); min-height: 46px; }
+  .mobile-nav .m-sub a::before { content: "—"; color: var(--dourado); margin-right: 8px; }
+  .mobile-nav .m-sub-toggle .caret { transition: transform .2s ease; }
+  .mobile-nav .m-sub-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+  .mobile-nav .btn { width: 100%; margin-top: var(--sp-4); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    display: flex; align-items: center;
+    min-height: 86vh; min-height: 86svh;
+    padding-block: var(--sp-8);
+    overflow: hidden;
+    color: #fff;
+    background: var(--verde-profundo);   /* fallback enquanto o vídeo carrega */
+  }
+  .hero-video {
+    position: absolute; inset: 0; z-index: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    pointer-events: none;
+  }
+  /* Véu verde para garantir contraste AA do texto branco sobre o vídeo */
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(0,36,24,0.55) 0%, rgba(0,36,24,0.60) 45%, rgba(0,28,16,0.82) 100%),
+      linear-gradient(90deg, rgba(0,36,24,0.72) 0%, rgba(0,36,24,0.30) 55%, transparent 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; width: 100%; }
+  .hero-copy { text-align: center; max-width: 720px; margin-inline: auto; }
+  .hero .eyebrow { color: var(--dourado-claro); }
+  .hero h1 {
+    font-size: 36px; color: #fff; letter-spacing: .5px;
+    text-transform: uppercase; text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .hero .subheadline { font-size: 18px; color: rgba(255,255,255,0.90); margin-top: var(--sp-3); max-width: 46ch; margin-inline: auto; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; margin-top: var(--sp-5); }
+  .hero-actions .btn { flex: 1 1 240px; }
+  .hero-support {
+    font-size: 15px; color: rgba(255,255,255,0.82);
+    margin-top: var(--sp-5); text-align: left; line-height: 1.7;
+    max-width: 60ch; margin-inline: auto;
+    padding-top: var(--sp-4); border-top: 2px solid var(--dourado);
+  }
+
+  /* ---------- QUEM SOMOS ---------- */
+  .quem-somos { background: var(--off-white); }
+  .quem-somos .prose { max-width: 620px; }
+  .quem-somos .prose p { font-size: 17px; }
+  .quem-somos .link-arrow { margin-top: var(--sp-4); }
+  .qs-grid { display: grid; gap: var(--sp-5); align-items: center; }
+  .qs-media { margin: 0; max-width: 440px; }
+  .qs-media img {
+    width: 100%; border-radius: var(--r-img);
+    aspect-ratio: 4 / 5; object-fit: cover;
+    border: 3px solid var(--dourado);
+    box-shadow: var(--sh-hover);
+  }
+
+  /* ---------- ÁREAS DE ATUAÇÃO ---------- */
+  .areas { background: var(--branco); }
+  .cards-grid { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+  .service-card {
+    background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
+    padding: var(--sp-4);
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), border-color .22s var(--ease-out);
+  }
+  .service-card:focus-within { transform: translateY(-4px); box-shadow: var(--sh-hover); border-color: var(--dourado); }
+  @media (hover: hover) and (pointer: fine) {
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--sh-hover); border-color: transparent; }
+  }
+  .card-icon {
+    width: 56px; height: 56px; border-radius: var(--r-pill);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(207,157,83,0.16); color: var(--verde-profundo); flex: 0 0 auto;
+  }
+  .card-icon svg { width: 28px; height: 28px; }
+  .service-card h3 { color: var(--verde-profundo); }
+  .service-card p { color: var(--grafite); font-size: 15px; }
+  .service-card .link-arrow { margin-top: auto; }
+
+  /* ---------- DIFERENCIAIS ---------- */
+  .diferenciais { background: var(--off-white); }  /* faixa clara alternada */
+  .dif-grid { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
+  .dif-item {
+    display: flex; align-items: center; gap: var(--sp-3);
+    background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
+    padding: var(--sp-3) var(--sp-4); min-height: 76px;
+    box-shadow: var(--sh-card);
+    transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .dif-item:hover { transform: translateY(-3px); box-shadow: var(--sh-hover); }
+  }
+  .dif-check {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: var(--r-pill);
+    background: var(--verde-profundo); color: var(--dourado-claro);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .dif-check svg { width: 22px; height: 22px; }
+  .dif-item span { font-weight: 600; font-size: 15px; color: var(--grafite); letter-spacing: .3px; }
+
+  /* ---------- EQUIPE ---------- */
+  .equipe { background: var(--branco); }
+  .equipe .prose { max-width: 720px; }
+  .equipe .prose p { font-size: 17px; }
+  .equipe .link-arrow { margin-top: var(--sp-4); }
+
+  /* ---------- SOBRE (reforço, verde) ---------- */
+  .sobre {
+    background:
+      radial-gradient(100% 120% at 10% 0%, rgba(207,157,83,0.08), transparent 50%),
+      var(--off-white);
+    color: var(--grafite); text-align: center;
+  }
+  .sobre .prose { max-width: 760px; margin-inline: auto; }
+  .sobre h2 { color: var(--verde-profundo); }
+  .sobre p { color: var(--grafite); font-size: 17px; }
+  .sobre .btn { margin-top: var(--sp-5); }
+
+  /* ---------- BLOG ---------- */
+  .blog { background: var(--branco); }
+  .posts-grid { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+  .post-card {
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
+    padding: var(--sp-4); overflow: hidden;
+    transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), border-color .22s var(--ease-out);
+  }
+  .post-card:focus-within { transform: translateY(-4px); box-shadow: var(--sh-hover); border-color: var(--dourado); }
+  @media (hover: hover) and (pointer: fine) {
+    .post-card:hover { transform: translateY(-4px); box-shadow: var(--sh-hover); border-color: transparent; }
+  }
+  .post-tag {
+    align-self: flex-start;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--verde-profundo); background: rgba(207,157,83,0.16);
+    padding: 6px 14px; border-radius: var(--r-pill);
+  }
+  .post-card h3 { color: var(--verde-profundo); font-size: 21px; }
+  .blog .link-arrow { margin-top: var(--sp-5); }
+
+  /* ---------- CTA FINAL / CONTATO ---------- */
+  .contato {
+    background:
+      radial-gradient(120% 90% at 90% 0%, rgba(207,157,83,0.08), transparent 55%),
+      var(--off-white);
+    color: var(--grafite);
+  }
+  .contato-grid { display: grid; gap: var(--sp-6); }
+  .contato h2 { color: var(--verde-profundo); }
+  .contato .contato-lead { color: var(--grafite); font-size: 17px; margin-top: var(--sp-3); }
+  .contato .btn--whats { margin-top: var(--sp-5); width: 100%; }
+  .form-card { border: 1px solid var(--cinza-borda); }
+
+  /* Formulário */
+  .form-card {
+    background: #fff; color: var(--grafite);
+    border-radius: var(--r-card); padding: var(--sp-5);
+    box-shadow: var(--sh-hover);
+  }
+  .form-card h3 { color: var(--verde-profundo); margin-bottom: var(--sp-4); }
+  .field { margin-bottom: var(--sp-4); }
+  .field label { display: block; font-size: 14px; font-weight: 600; color: var(--grafite); margin-bottom: var(--sp-2); }
+  .field input, .field textarea, .field select {
+    width: 100%; background: #fff; color: var(--grafite);
+    border: 1px solid var(--cinza-borda); border-radius: var(--r-btn);
+    padding: 12px 16px; line-height: 1.5;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--cinza-medio); }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(207,157,83,0.15);
+  }
+  .form-card .btn { width: 100%; }
+  .form-hint { font-size: 13px; color: var(--cinza-medio); margin-top: var(--sp-3); text-align: center; }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer { background: var(--verde-escuro); color: rgba(255,255,255,0.82); padding-block: var(--sp-7) var(--sp-5); }
+  .footer-grid { display: grid; gap: var(--sp-6); grid-template-columns: 1fr; }
+  .footer-brand .brand-name { font-family: var(--font-display); font-size: 26px; color: #fff; }
+  .footer-brand .brand-sub { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--dourado); margin-top: 4px; }
+  .footer-brand .signature { font-family: var(--font-display); font-size: 22px; color: var(--dourado-claro); margin-top: var(--sp-4); font-style: italic; }
+  .footer-col h4 { font-family: var(--font-body); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); margin-bottom: var(--sp-3); }
+  .footer-col ul li { margin-bottom: var(--sp-2); }
+  .footer-col a { min-height: 44px; display: inline-flex; align-items: center; color: rgba(255,255,255,0.82); border-bottom: 1px solid transparent; }
+  .footer-col a:hover, .footer-col a:focus-visible { color: #fff; border-color: var(--dourado); }
+  .contact-line { display: flex; gap: 10px; align-items: flex-start; margin-bottom: var(--sp-3); font-size: 15px; }
+  .contact-line svg { flex: 0 0 auto; width: 20px; height: 20px; color: var(--dourado); margin-top: 3px; }
+  .placeholder { color: var(--dourado-claro); font-style: italic; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); margin-top: var(--sp-6); padding-top: var(--sp-4);
+    display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: space-between;
+    font-size: 13px; color: rgba(255,255,255,0.6);
+  }
+
+  /* ---------- WIDGET WHATSAPP FLUTUANTE ---------- */
+  .whats-widget {
+    position: fixed; right: 18px; bottom: 18px; z-index: 120;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--whatsapp); color: #fff;
+    padding: 12px 18px 12px 14px; border-radius: var(--r-pill);
+    box-shadow: var(--sh-widget); min-height: 52px; cursor: pointer;
+    transition: transform .18s var(--ease-out), background .2s var(--ease-out), box-shadow .2s var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .whats-widget:hover { background: var(--whatsapp-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+  }
+  .whats-widget:active { transform: scale(0.97); }
+  .whats-widget:focus-visible { outline: 3px solid var(--dourado-claro); outline-offset: 3px; }
+  .whats-widget svg { width: 26px; height: 26px; flex: 0 0 auto; }
+  .whats-widget .widget-label { font-weight: 600; font-size: 14px; }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  /* Cascata sutil nos grids (30–80ms entre itens, Emil) */
+  .cards-grid .reveal:nth-child(2), .dif-grid .reveal:nth-child(2), .posts-grid .reveal:nth-child(2) { transition-delay: .06s; }
+  .cards-grid .reveal:nth-child(3), .dif-grid .reveal:nth-child(3) { transition-delay: .12s; }
+  .cards-grid .reveal:nth-child(4), .dif-grid .reveal:nth-child(4) { transition-delay: .18s; }
+  .dif-grid .reveal:nth-child(5) { transition-delay: .24s; }
+  .dif-grid .reveal:nth-child(6) { transition-delay: .30s; }
+
+  /* ---------- BREAKPOINT: TABLET (>= 768px) ---------- */
+  @media (min-width: 768px) {
+    section { padding-block: 80px; }
+    h2 { font-size: 34px; }
+    .hero h1 { font-size: 48px; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .dif-grid { grid-template-columns: repeat(2, 1fr); }
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    .contato-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+    .contato .btn--whats { width: auto; }
+    .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+    .hero-support { text-align: left; }
+    .qs-grid { grid-template-columns: 0.9fr 1.1fr; gap: var(--sp-6); }
+    .qs-media { justify-self: start; }
+  }
+
+  /* ---------- BREAKPOINT: DESKTOP (>= 1024px) ---------- */
+  @media (min-width: 1024px) {
+    :root { --header-h: 84px; }
+    .brand img { height: 64px; }
+    section { padding-block: 96px; }             /* 96px desktop */
+    h2 { font-size: 40px; }
+    .hero h1 { font-size: 56px; }
+    .header-cta { display: inline-flex; }
+    .primary-nav { display: block; }
+    .nav-burger { display: none; }
+    .mobile-nav { display: none; }
+
+    .hero-copy { text-align: left; margin-inline: 0; }
+    .hero .subheadline, .hero-support { margin-inline: 0; }
+    .hero-actions { justify-content: flex-start; }
+    .hero-actions .btn { flex: 0 0 auto; }
+
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1200px) {
+    .container { padding-inline: var(--sp-3); }
+  }
+
+  /* ---------- PREFERÊNCIAS DE MOVIMENTO ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* Impede scroll do body quando menu mobile aberto */
+  body.menu-open { overflow: hidden; }
+</style>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Pular para o conteúdo principal</a>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header" id="topo">
+  <div class="container header-inner">
+    <a href="#inicio" class="brand" aria-label="Vanira Araújo Advocacia — página inicial">
+      <img src="logo-vanira.png" alt="Vanira Araújo — Advocacia Bancária e Agro"
+           width="880" height="373" decoding="async" fetchpriority="high">
+    </a>
+
+    <nav class="primary-nav" aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li class="has-dropdown">
+          <button type="button" class="nav-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-areas">
+            Áreas de Atuação
+            <svg class="caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="dropdown" id="dropdown-areas">
+            <li><a href="#prorrogacao">Prorrogação e Alongamento de Dívida Rural</a></li>
+            <li><a href="#recuperacao-extrajudicial">Recuperação Extrajudicial (Recuperação Branca)</a></li>
+            <li><a href="#recuperacao-judicial">Recuperação Judicial</a></li>
+            <li><a href="#defesa">Defesa do Produtor Rural</a></li>
+          </ul>
+        </li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <a class="btn btn--whats header-cta" data-whats aria-label="Fale com a Dra. Vanira pelo WhatsApp">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+      Fale com a Dra. Vanira
+    </a>
+
+    <button type="button" class="nav-burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <!-- Menu mobile -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
+    <ul>
+      <li><a href="#inicio" data-close>Início</a></li>
+      <li><a href="#quem-somos" data-close>Quem Somos</a></li>
+      <li>
+        <button type="button" class="m-sub-toggle" aria-expanded="false" aria-controls="m-sub-areas">
+          Áreas de Atuação
+          <svg class="caret" width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="m-sub" id="m-sub-areas">
+          <li><a href="#prorrogacao" data-close>Prorrogação e Alongamento de Dívida Rural</a></li>
+          <li><a href="#recuperacao-extrajudicial" data-close>Recuperação Extrajudicial (Recuperação Branca)</a></li>
+          <li><a href="#recuperacao-judicial" data-close>Recuperação Judicial</a></li>
+          <li><a href="#defesa" data-close>Defesa do Produtor Rural</a></li>
+        </ul>
+      </li>
+      <li><a href="#blog" data-close>Blog</a></li>
+      <li><a href="#contato" data-close>Contato</a></li>
+    </ul>
+    <a class="btn btn--whats" data-whats data-close aria-label="Fale com a Dra. Vanira pelo WhatsApp">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+      Fale com a Dra. Vanira
+    </a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="dra-vanira.jpg" aria-hidden="true" tabindex="-1">
+      <source src="hero-video.webm" type="video/webm">
+      <source src="hero-video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Uberaba/MG · Triângulo Mineiro</p>
+        <h1 id="hero-title">Defesa Jurídica do Produtor Rural</h1>
+        <p class="subheadline">[X] anos ao lado de quem produz — soluções em dívida rural, recuperação judicial e extrajudicial</p>
+
+        <div class="hero-actions">
+          <a href="#quem-somos" class="btn btn--primary">Conheça o escritório</a>
+          <a class="btn btn--whats" data-whats aria-label="Fale com a Dra. Vanira pelo WhatsApp">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+            Fale com a Dra. Vanira
+          </a>
+        </div>
+
+        <p class="hero-support">Experiência e proximidade com quem vive a lida do campo. Atuação estratégica em renegociação de dívida rural, prorrogação de contratos bancários e recuperação judicial de produtores em todo o Triângulo Mineiro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ QUEM SOMOS ============================ -->
+  <section class="quem-somos" id="quem-somos" aria-labelledby="quem-somos-title">
+    <div class="container">
+      <div class="qs-grid">
+        <figure class="qs-media reveal">
+          <img src="dra-vanira.jpg"
+               alt="Dra. Vanira Araújo, advogada especializada em direito do produtor rural, em ambiente profissional"
+               width="862" height="1280" loading="lazy" decoding="async">
+        </figure>
+
+        <div class="qs-content">
+          <div class="section-head reveal">
+            <p class="eyebrow">Quem Somos</p>
+            <h2 id="quem-somos-title">Vanira Advocacia</h2>
+            <div class="rule"></div>
+          </div>
+          <div class="prose reveal">
+            <p>O escritório da Dra. Vanira foi constituído com o propósito de defender o produtor rural em um dos momentos mais delicados da atividade: o endividamento. Com sede em Uberaba/MG e atuação em todo o Triângulo Mineiro, o escritório reúne uma equipe especializada em direito bancário rural, com foco em soluções técnicas, humanizadas e individuais para cada produtor.</p>
+            <p>Entendemos que por trás de cada dívida existe uma família, uma propriedade e uma história. Por isso, nosso trabalho começa muito antes do processo: começa ouvindo o produtor.</p>
+            <a href="#equipe" class="link-arrow">Saiba mais
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ÁREAS DE ATUAÇÃO ============================ -->
+  <section class="areas" id="areas" aria-labelledby="areas-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="areas-title">Áreas de Atuação</h2>
+        <div class="rule"></div>
+      </div>
+
+      <div class="cards-grid">
+
+        <article class="service-card reveal" id="prorrogacao">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          </span>
+          <h3>Prorrogação e Alongamento de Dívida Rural</h3>
+          <p>Renegociação de contratos de crédito rural afetados por fatores alheios à vontade do produtor — quebra de safra, estiagem, geada ou queda abrupta de preços. Atuação com base no MCR (Manual de Crédito Rural) para alongar prazos e reduzir o peso da dívida sem comprometer a continuidade da atividade.</p>
+          <a class="link-arrow" data-whats aria-label="Saiba mais sobre Prorrogação e Alongamento de Dívida Rural pelo WhatsApp">Saiba mais
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card reveal" id="recuperacao-extrajudicial">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.4 8.4 0 01-3.6-.8L3 20.5l1.4-5.4A8.4 8.4 0 1121 11.5z"/></svg>
+          </span>
+          <h3>Recuperação Extrajudicial (Recuperação Branca)</h3>
+          <p>Negociação direta com instituições financeiras antes de qualquer processo judicial, buscando acordo, redução de encargos e reestruturação de dívida de forma rápida e discreta — preservando o relacionamento do produtor com o banco e evitando desgaste desnecessário.</p>
+          <a class="link-arrow" data-whats aria-label="Saiba mais sobre Recuperação Extrajudicial pelo WhatsApp">Saiba mais
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card reveal" id="recuperacao-judicial">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 7l-3 6a3 3 0 006 0L6 7z"/><path d="M18 7l-3 6a3 3 0 006 0l-3-6z"/><path d="M7 7h10"/><path d="M8 21h8"/></svg>
+          </span>
+          <h3>Recuperação Judicial</h3>
+          <p>Quando a negociação direta não é suficiente, atuamos na condução do processo de recuperação judicial do produtor rural, garantindo a suspensão de execuções, a proteção do patrimônio produtivo e um plano de pagamento viável para a continuidade da atividade.</p>
+          <a class="link-arrow" data-whats aria-label="Saiba mais sobre Recuperação Judicial pelo WhatsApp">Saiba mais
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card reveal" id="defesa">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
+          </span>
+          <h3>Defesa do Produtor Rural</h3>
+          <p>Representação em ações revisionais, execuções e demais disputas envolvendo bancos e instituições financeiras, com foco na proteção do bem de família, dos maquinários e da terra produtiva.</p>
+          <a class="link-arrow" data-whats aria-label="Saiba mais sobre Defesa do Produtor Rural pelo WhatsApp">Saiba mais
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DIFERENCIAIS ============================ -->
+  <section class="diferenciais" id="diferenciais" aria-labelledby="dif-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="dif-title">Nossos Diferenciais</h2>
+        <div class="rule"></div>
+      </div>
+
+      <ul class="dif-grid">
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Atendimento próximo e humanizado</span>
+        </li>
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Especialização em direito rural e bancário</span>
+        </li>
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Acompanhamento integral do processo</span>
+        </li>
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Atuação em Uberaba e região</span>
+        </li>
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Equipe especializada</span>
+        </li>
+        <li class="dif-item reveal">
+          <span class="dif-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span>Contato direto pelo WhatsApp</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ EQUIPE ============================ -->
+  <section class="equipe" id="equipe" aria-labelledby="equipe-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="equipe-title">Conheça nossa equipe</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="prose reveal">
+        <p>Conheça a equipe da Dra. Vanira, especializada em Direito do Agronegócio, Direito Bancário e Recuperação Judicial de produtores rurais.</p>
+        <a class="link-arrow" data-whats aria-label="Saiba mais sobre a equipe pelo WhatsApp">Saiba mais
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ SOBRE (reforço) ============================ -->
+  <section class="sobre" id="sobre" aria-labelledby="sobre-title">
+    <div class="container">
+      <div class="prose reveal">
+        <h2 id="sobre-title">Ao lado do produtor em cada etapa</h2>
+        <div class="rule"></div>
+        <p style="margin-top:var(--sp-4)">A Vanira Advocacia é um escritório especializado em Direito Bancário Rural e Recuperação Judicial e Extrajudicial, com atuação em Uberaba e em todo o Triângulo Mineiro. Nossa equipe acompanha o produtor rural em cada etapa — da negociação com o banco até, se necessário, a defesa em juízo — com linguagem acessível e comunicação direta pelo WhatsApp.</p>
+        <a class="btn btn--whats" data-whats aria-label="Falar com a Dra. Vanira pelo WhatsApp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+          Falar com a Dra. Vanira
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ BLOG ============================ -->
+  <section class="blog" id="blog" aria-labelledby="blog-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="blog-title">Artigos e Notícias</h2>
+        <div class="rule"></div>
+      </div>
+
+      <div class="posts-grid">
+        <article class="post-card reveal">
+          <span class="post-tag">Crédito Rural</span>
+          <h3>Prorrogação de Dívida de Crédito Rural: o que diz o MCR e quando o produtor tem direito</h3>
+          <a class="link-arrow" href="#contato">Ler artigo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="post-card reveal">
+          <span class="post-tag">Recuperação</span>
+          <h3>Recuperação Judicial x Recuperação Extrajudicial: qual o caminho certo para o produtor rural endividado?</h3>
+          <a class="link-arrow" href="#contato">Ler artigo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      </div>
+
+      <div class="center" style="text-align:center">
+        <a class="link-arrow" href="#blog" style="margin-inline:auto">Ver todas as postagens
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CTA FINAL / CONTATO ============================ -->
+  <section class="contato" id="contato" aria-labelledby="contato-title">
+    <div class="container">
+      <div class="contato-grid">
+        <div class="reveal">
+          <p class="eyebrow">Contato</p>
+          <h2 id="contato-title">Fale com a Dra. Vanira</h2>
+          <div class="rule"></div>
+          <p class="contato-lead">Nos envie uma mensagem contando sua situação ou fale direto pelo WhatsApp. Nossa equipe responde o mais breve possível.</p>
+          <a class="btn btn--whats" data-whats aria-label="Quero falar com a advogada pelo WhatsApp">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+            Quero falar com a advogada
+          </a>
+        </div>
+
+        <div class="form-card reveal">
+          <h3>Envie sua mensagem</h3>
+          <form id="contato-form" novalidate>
+            <div class="field">
+              <label for="f-nome">Nome</label>
+              <input type="text" id="f-nome" name="nome" autocomplete="name" placeholder="Seu nome completo" required>
+            </div>
+            <div class="field">
+              <label for="f-whats">WhatsApp</label>
+              <input type="tel" id="f-whats" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required>
+            </div>
+            <div class="field">
+              <label for="f-msg">Sua situação</label>
+              <textarea id="f-msg" name="mensagem" placeholder="Conte brevemente sua situação de dívida rural"></textarea>
+            </div>
+            <button type="submit" class="btn btn--whats">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+              Enviar pelo WhatsApp
+            </button>
+            <p class="form-hint">Ao enviar, sua mensagem abrirá no WhatsApp da Dra. Vanira.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-name">Vanira</span>
+        <div class="brand-sub">Advocacia</div>
+        <p style="margin-top:var(--sp-3); max-width:34ch; color:rgba(255,255,255,0.75);">Direito Bancário Rural e Recuperação Judicial e Extrajudicial em Uberaba/MG e todo o Triângulo Mineiro.</p>
+        <p class="signature">Ao lado de quem produz.</p>
+      </div>
+
+      <nav class="footer-col" aria-label="Links do rodapé">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#areas">Áreas de Atuação</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <address style="font-style:normal">
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Endereço: <span class="placeholder">[endereço do escritório em Uberaba/MG]</span></span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2z"/></svg>
+            <span>WhatsApp: <a data-whats class="placeholder" aria-label="WhatsApp — a configurar">[a configurar]</a></span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>E-mail: <span class="placeholder">[a configurar]</span></span>
+          </div>
+          <div class="contact-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <span>Instagram / LinkedIn: <span class="placeholder">[a configurar]</span></span>
+          </div>
+        </address>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="ano"></span> Vanira Advocacia. Todos os direitos reservados.</span>
+      <span>Uberaba/MG · Triângulo Mineiro</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ WIDGET WHATSAPP FLUTUANTE ============================ -->
+<a class="whats-widget" data-whats aria-label="Precisa de ajuda? Fale com a Dra. Vanira pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
+  <span class="widget-label">Precisa de ajuda?</span>
+</a>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =========================================================================
+     >>> CONFIGURAÇÃO — SUBSTITUIR ANTES DE PUBLICAR <<<
+     Número no formato internacional, só dígitos: 55 + DDD + número.
+     Ex.: '553499998888' (55 Brasil, 34 DDD Uberaba, 99998888).
+  ========================================================================= */
+  var WHATSAPP_NUMBER = '5534000000000';
+  var WHATSAPP_MSG = 'Olá! Gostaria de falar com a Dra. Vanira sobre minha dívida rural. Pode me ajudar?';
+
+  function whatsUrl(msg) {
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg || WHATSAPP_MSG);
+  }
+
+  /* Aplica o link do WhatsApp a todos os elementos [data-whats] */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-whats]'), function (el) {
+    el.setAttribute('href', whatsUrl());
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener noreferrer');
+  });
+
+  /* Ano do rodapé */
+  var anoEl = document.getElementById('ano');
+  if (anoEl) anoEl.textContent = new Date().getFullYear();
+
+  /* ---------- Header: sombra ao rolar ---------- */
+  var header = document.querySelector('.site-header');
+  var onScroll = function () {
+    if (window.scrollY > 12) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Menu mobile ---------- */
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobile-nav');
+
+  function setMenu(open) {
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+  }
+  burger.addEventListener('click', function () {
+    setMenu(burger.getAttribute('aria-expanded') !== 'true');
+  });
+  /* Fecha ao clicar em qualquer link marcado com data-close */
+  Array.prototype.forEach.call(mobileNav.querySelectorAll('[data-close]'), function (a) {
+    a.addEventListener('click', function () { setMenu(false); });
+  });
+  /* Submenu mobile (acordeão) */
+  var mSubToggle = mobileNav.querySelector('.m-sub-toggle');
+  if (mSubToggle) {
+    var mSub = document.getElementById(mSubToggle.getAttribute('aria-controls'));
+    mSubToggle.addEventListener('click', function () {
+      var open = mSubToggle.getAttribute('aria-expanded') !== 'true';
+      mSubToggle.setAttribute('aria-expanded', String(open));
+      mSub.classList.toggle('open', open);
+    });
+  }
+  /* Fecha o menu com ESC */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+      setMenu(false);
+      burger.focus();
+    }
+  });
+
+  /* ---------- Dropdown desktop (Áreas de Atuação) ---------- */
+  var ddToggle = document.querySelector('.has-dropdown .nav-toggle');
+  if (ddToggle) {
+    var ddParent = ddToggle.closest('.has-dropdown');
+    var ddMenu = document.getElementById(ddToggle.getAttribute('aria-controls'));
+
+    function setDropdown(open) {
+      ddToggle.setAttribute('aria-expanded', String(open));
+      ddParent.setAttribute('aria-expanded-group', String(open));
+      ddMenu.classList.toggle('open', open);
+    }
+    ddToggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      setDropdown(ddToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    /* Fecha ao selecionar item ou clicar fora / ESC */
+    Array.prototype.forEach.call(ddMenu.querySelectorAll('a'), function (a) {
+      a.addEventListener('click', function () { setDropdown(false); });
+    });
+    document.addEventListener('click', function (e) {
+      if (!ddParent.contains(e.target)) setDropdown(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setDropdown(false);
+    });
+  }
+
+  /* ---------- Formulário → WhatsApp ---------- */
+  var form = document.getElementById('contato-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var nome = form.nome.value.trim();
+      var whats = form.whatsapp.value.trim();
+      var msg = form.mensagem.value.trim();
+      var texto = 'Olá! Meu nome é ' + nome + '.'
+        + (whats ? ' Meu WhatsApp: ' + whats + '.' : '')
+        + (msg ? ' ' + msg : ' Gostaria de falar com a Dra. Vanira sobre minha dívida rural.');
+      window.open(whatsUrl(texto), '_blank', 'noopener');
+    });
+  }
+
+  /* ---------- Scroll reveal (IntersectionObserver) ---------- */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(revealEls, function (el) { el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    Array.prototype.forEach.call(revealEls, function (el) { io.observe(el); });
+  }
+
+  /* ---------- Vídeo da hero ---------- */
+  var heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    if (reduce) {
+      /* Sem movimento: mantém o poster (foto) parado, respeitando a preferência do usuário */
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+    } else {
+      /* Alguns navegadores exigem play() explícito mesmo com autoplay+muted */
+      var attempt = heroVideo.play();
+      if (attempt && attempt.catch) attempt.catch(function () {});
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
