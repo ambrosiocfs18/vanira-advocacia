@@ -16,10 +16,11 @@ Landing page de página única (HTML/CSS/JS, sem dependências externas) para a 
 - Zero dependências externas — todo CSS/JS embutido
 - Vídeo de fundo mudo com fallback de poster
 
-## Pendências antes de divulgar
+## Dados institucionais
 
-- Substituir `WHATSAPP_NUMBER` no `<script>` ao final do `index.html`
-- Preencher os campos de contato do rodapé (endereço, e-mail, redes) e o `[X] anos` da hero
+- WhatsApp: (34) 99796-5600 · E-mail: contato@advvaniraaraujo.com.br
+- Dra. Vanira Araújo — OAB/MG 200.037 · CNPJ 39.991.601/0001-49
+- Atendimento 100% digital em todo o Brasil (Seg–Sex, 7h–22h), sede em Uberaba/MG
 
 ## Deploy
 
