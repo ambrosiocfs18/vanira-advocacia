@@ -147,17 +147,42 @@
     Array.prototype.forEach.call(revealEls, function (el) { io.observe(el); });
   }
 
-  /* ---------- Vídeo da hero ---------- */
+  /* ---------- Vídeo da hero ----------
+     O poster já desenha a hero. O vídeo (1,3 MB) só é baixado depois que a página
+     terminou de carregar, para não competir com CSS, logo e imagens. É dispensado
+     quando o usuário pede menos movimento, ativou economia de dados ou está numa
+     conexão lenta: nesses casos fica só o poster, que é o comportamento correto. */
   var heroVideo = document.getElementById('hero-video');
   if (heroVideo) {
-    if (reduce) {
-      /* Sem movimento: mantém o poster (foto) parado, respeitando a preferência do usuário */
+    var conn = navigator.connection || {};
+    var lenta = conn.saveData === true ||
+                /^(slow-)?2g$/.test(conn.effectiveType || '');
+
+    if (reduce || lenta) {
       heroVideo.removeAttribute('autoplay');
-      heroVideo.pause();
     } else {
-      /* Alguns navegadores exigem play() explícito mesmo com autoplay+muted */
-      var attempt = heroVideo.play();
-      if (attempt && attempt.catch) attempt.catch(function () {});
+      var carregar = function () {
+        var webm = heroVideo.getAttribute('data-src-webm');
+        var mp4 = heroVideo.getAttribute('data-src-mp4');
+        if (!webm && !mp4) return;
+        if (webm) {
+          var s1 = document.createElement('source');
+          s1.src = webm; s1.type = 'video/webm';
+          heroVideo.appendChild(s1);
+        }
+        if (mp4) {
+          var s2 = document.createElement('source');
+          s2.src = mp4; s2.type = 'video/mp4';
+          heroVideo.appendChild(s2);
+        }
+        heroVideo.preload = 'auto';
+        heroVideo.load();
+        var attempt = heroVideo.play();
+        if (attempt && attempt.catch) attempt.catch(function () {});
+      };
+
+      if (document.readyState === 'complete') carregar();
+      else window.addEventListener('load', carregar, { once: true });
     }
   }
 })();

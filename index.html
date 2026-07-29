@@ -185,11 +185,11 @@
 
   <!-- ============================ HERO ============================ -->
   <section class="hero" id="inicio" aria-labelledby="hero-title">
-    <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto"
-           poster="dra-vanira.jpg" aria-hidden="true" tabindex="-1">
-      <source src="hero-video.webm" type="video/webm">
-      <source src="hero-video.mp4" type="video/mp4">
-    </video>
+    <!-- O poster desenha a hero na hora; o vídeo é anexado por JS só depois que a
+         página carrega, e é dispensado em conexões lentas / economia de dados. -->
+    <video class="hero-video" id="hero-video" muted loop playsinline preload="none"
+           poster="hero-poster.jpg" aria-hidden="true" tabindex="-1"
+           data-src-webm="hero-video.webm" data-src-mp4="hero-video.mp4"></video>
     <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="container hero-inner">
