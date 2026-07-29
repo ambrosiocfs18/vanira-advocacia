@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "prorrogacao\\..+" }],
+      "destination": "/prorrogacao"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "recuperacao-extrajudicial\\..+" }],
+      "destination": "/recuperacao-extrajudicial"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "recuperacao-judicial\\..+" }],
+      "destination": "/recuperacao-judicial"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "defesa-produtor-rural\\..+" }],
+      "destination": "/defesa-produtor-rural"
+    }
+  ]
+}
