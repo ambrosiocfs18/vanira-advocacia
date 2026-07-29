@@ -190,18 +190,20 @@
   .nav-list a:focus-visible, .nav-list .nav-toggle:focus-visible { outline: 2px solid var(--dourado); outline-offset: 4px; }
 
   /* Dropdown Áreas de Atuação */
-  .has-dropdown .caret { transition: transform .2s ease; }
+  .has-dropdown .caret { transition: transform .2s var(--ease-out); }
   .has-dropdown[aria-expanded-group="true"] .caret { transform: rotate(180deg); }
   .dropdown {
     position: absolute; top: 100%; left: 0; min-width: 300px;
     background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
     box-shadow: var(--sh-hover); padding: var(--sp-2);
-    opacity: 0; visibility: hidden; transform: translateY(8px);
-    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+    /* Abre a partir do gatilho, não do centro: o menu "cresce" de onde foi clicado */
+    transform-origin: top left;
+    opacity: 0; visibility: hidden; transform: translateY(6px) scale(0.97);
+    transition: opacity .18s var(--ease-out), transform .18s var(--ease-out), visibility .18s;
   }
   .has-dropdown:hover .dropdown,
   .has-dropdown:focus-within .dropdown,
-  .dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
   .dropdown a {
     display: block; color: var(--grafite); min-height: 44px; align-items: center;
     padding: 10px 14px; border-radius: var(--r-btn); border-bottom: none; font-weight: 500;
@@ -593,4 +595,72 @@
 }
 @media (min-width: 1024px) {
   .page-hero h1 { font-size: 46px; }
+}
+
+/* ==========================================================================
+   POLIMENTO DE INTERAÇÃO
+   ========================================================================== */
+
+/* Feedback de pressão em tudo que é clicável (não só nos botões) */
+.other-card:active,
+.service-card:active,
+.post-card:active { transform: scale(0.985); }
+.other-card, .service-card, .post-card { touch-action: manipulation; }
+
+/* Página atual destacada na navegação */
+.nav-list a[aria-current="page"],
+.dropdown a[aria-current="page"],
+.mobile-nav a[aria-current="page"] {
+  color: var(--verde-profundo);
+  font-weight: 600;
+}
+.dropdown a[aria-current="page"] {
+  background: rgba(198,145,42,0.12);
+  box-shadow: inset 2px 0 0 var(--dourado);
+}
+.nav-list a[aria-current="page"] { border-color: var(--dourado); }
+
+/* Cascata de entrada nos serviços da página de área */
+.svc-list .svc-item {
+  opacity: 0; transform: translateY(10px);
+  animation: svc-in .5s var(--ease-out) forwards;
+}
+.svc-list .svc-item:nth-child(2) { animation-delay: .05s; }
+.svc-list .svc-item:nth-child(3) { animation-delay: .10s; }
+.svc-list .svc-item:nth-child(4) { animation-delay: .15s; }
+@keyframes svc-in { to { opacity: 1; transform: none; } }
+
+/* A régua dourada cresce a partir da esquerda quando a seção aparece */
+.reveal .rule { transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out) .1s; }
+.reveal.is-visible .rule { transform: scaleX(1); }
+.center .rule, .cta-band .rule { transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-list .svc-item { opacity: 1; transform: none; animation: none; }
+  .reveal .rule, .reveal.is-visible .rule { transform: none; transition: none; }
+}
+
+/* ==========================================================================
+   BLOCO DE AUTORIDADE (páginas de área)
+   ========================================================================== */
+.attorney { background: var(--branco); }
+.attorney-grid { display: grid; gap: var(--sp-5); align-items: center; }
+.attorney-photo {
+  width: 100%; max-width: 340px; border-radius: var(--r-img);
+  aspect-ratio: 4 / 5; object-fit: cover;
+  border: 3px solid var(--dourado); box-shadow: var(--sh-hover);
+}
+.attorney h2 { color: var(--verde-profundo); }
+.attorney p { color: var(--grafite); font-size: 17px; margin-top: var(--sp-4); max-width: 60ch; }
+.cred-list { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.cred-list li {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--off-white); border: 1px solid var(--cinza-borda);
+  border-radius: var(--r-pill); padding: 8px 16px;
+  font-size: 14px; font-weight: 500; color: var(--verde-profundo);
+}
+.cred-list svg { width: 16px; height: 16px; color: var(--dourado); flex: 0 0 auto; }
+
+@media (min-width: 768px) {
+  .attorney-grid { grid-template-columns: 320px 1fr; gap: var(--sp-6); }
 }
