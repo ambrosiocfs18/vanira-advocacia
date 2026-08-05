@@ -87,22 +87,44 @@
     }
   });
 
-  /* ---------- Dropdown desktop (Áreas de Atuação) ---------- */
+  /* ---------- Sanfona de Áreas de Atuação (desktop) ----------
+     No mouse a sanfona abre no hover, direto pelo CSS. O JS cobre os
+     casos que o CSS não alcança: teclado e telas de toque. O gatilho é
+     um link para /areas-de-atuacao, então quem clica sem esperar a
+     sanfona ainda chega na página com todas as áreas. */
   var ddToggle = document.querySelector('.has-dropdown .nav-toggle');
   if (ddToggle) {
     var ddParent = ddToggle.closest('.has-dropdown');
     var ddMenu = document.getElementById(ddToggle.getAttribute('aria-controls'));
+    var semHover = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    function setDropdown(open) {
+    var setDropdown = function (open) {
       ddToggle.setAttribute('aria-expanded', String(open));
-      ddParent.setAttribute('aria-expanded-group', String(open));
+      ddParent.classList.toggle('open', open);
       ddMenu.classList.toggle('open', open);
-    }
+    };
+
+    /* Em tela de toque o primeiro toque abre a sanfona; o segundo navega. */
     ddToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      setDropdown(ddToggle.getAttribute('aria-expanded') !== 'true');
+      if (!semHover) return;
+      if (ddToggle.getAttribute('aria-expanded') !== 'true') {
+        e.preventDefault();
+        setDropdown(true);
+      }
     });
-    /* Fecha ao selecionar item ou clicar fora / ESC */
+
+    /* O hover do CSS já cuida do visual; aqui só mantemos o ARIA coerente. */
+    ddParent.addEventListener('mouseenter', function () {
+      if (!semHover) setDropdown(true);
+    });
+    ddParent.addEventListener('mouseleave', function () {
+      if (!semHover) setDropdown(false);
+    });
+    ddParent.addEventListener('focusin', function () { setDropdown(true); });
+    ddParent.addEventListener('focusout', function () {
+      if (!ddParent.contains(document.activeElement)) setDropdown(false);
+    });
+
     Array.prototype.forEach.call(ddMenu.querySelectorAll('a'), function (a) {
       a.addEventListener('click', function () { setDropdown(false); });
     });
@@ -110,7 +132,7 @@
       if (!ddParent.contains(e.target)) setDropdown(false);
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') setDropdown(false);
+      if (e.key === 'Escape') { setDropdown(false); ddToggle.blur(); }
     });
   }
 

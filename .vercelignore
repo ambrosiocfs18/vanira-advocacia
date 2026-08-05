@@ -4,3 +4,4 @@ WhatsApp Image*.jpeg
 COPY.txt
 DESIGN SYSTEM.txt
 .claude/
+build.py

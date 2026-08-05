@@ -92,6 +92,51 @@
    "publisher": {
     "@id": "https://vanira-advocacia.vercel.app/#escritorio"
    }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Posso recuperar meu veículo apreendido?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sim, é possível recorrer. É essencial agir rapidamente, pois o prazo para defesa já está correndo. Com uma boa estratégia jurídica, há grandes chances de reverter a situação e recuperar o veículo."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Se eu não fizer a defesa, posso ser cobrado de mais alguma coisa?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sim, se o valor obtido pela venda do veículo não quitar a dívida, o banco pode continuar como seu credor e até converter a ação de busca e apreensão em execução para atingir outros bens seus."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Meu nome continuará no SPC?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sim, até que a dívida seja totalmente quitada. O banco pode manter o seu nome nos órgãos de proteção ao crédito até a regularização completa do contrato."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "A busca e apreensão é legal?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sim, o procedimento é permitido por lei. Contudo, ele deve cumprir todos os requisitos legais para ser válido. Caso contrário, é possível contestar judicialmente."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Posso evitar a perda do veículo?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sim, é possível evitar a perda total negociando com o banco ou apresentando uma defesa consistente."
+     }
+    }
+   ]
   }
  ]
 }
@@ -118,35 +163,56 @@
 
 <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
 
-<!-- ============================ HEADER ============================ -->
 <header class="site-header" id="topo">
   <div class="container header-inner">
-    <a href="#inicio" class="brand" aria-label="Vanira Araújo Advocacia — página inicial">
-      <img src="logo-vanira.png" alt="Vanira Araújo — Advocacia Bancária e Agro"
+    <a href="/" class="brand" aria-label="Vanira Araújo Advocacia, página inicial">
+      <img src="/logo-vanira.png" alt="Vanira Araújo, Advocacia Bancária e Agro"
            width="880" height="373" decoding="async" fetchpriority="high">
     </a>
 
     <nav class="primary-nav" aria-label="Navegação principal">
       <ul class="nav-list">
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li><a href="/#inicio">Início</a></li>
+        <li><a href="/#quem-somos">Quem Somos</a></li>
         <li class="has-dropdown">
-          <button type="button" class="nav-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-areas">
+          <a class="nav-toggle" href="/areas-de-atuacao" aria-expanded="false"
+             aria-controls="dropdown-areas">
             Áreas de Atuação
             <svg class="caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <ul class="dropdown" id="dropdown-areas">
-            <li><a href="/prorrogacao">Prorrogação e Alongamento de Dívida Rural</a></li>
-            <li><a href="/recuperacao-extrajudicial">Recuperação Extrajudicial (Recuperação Branca)</a></li>
-            <li><a href="/recuperacao-judicial">Recuperação Judicial</a></li>
-            <li><a href="/defesa-produtor-rural">Defesa do Produtor Rural</a></li>
-          </ul>
+          </a>
+          <div class="dropdown" id="dropdown-areas">
+            <div class="dropdown-inner">
+            <div class="dd-group">
+              <p class="dd-group-title">Dívida Rural</p>
+              <ul>
+              <li><a href="/prorrogacao">Prorrogação e Alongamento de Dívida Rural</a></li>
+              <li><a href="/recuperacao-extrajudicial">Recuperação Extrajudicial (Recuperação Branca)</a></li>
+              <li><a href="/recuperacao-judicial">Recuperação Judicial</a></li>
+              <li><a href="/defesa-produtor-rural">Defesa do Produtor Rural</a></li>
+              </ul>
+            </div>
+            <div class="dd-group">
+              <p class="dd-group-title">Busca e Apreensão</p>
+              <ul>
+              <li><a href="/busca-apreensao-veiculos">Busca e Apreensão de Veículos</a></li>
+              <li><a href="/busca-apreensao-maquinas">Busca e Apreensão de Máquinas Agrícolas</a></li>
+              </ul>
+            </div>
+            <div class="dd-group">
+              <p class="dd-group-title">Empresas</p>
+              <ul>
+              <li><a href="/revisao-contratos-pj">Revisão de Contratos de Pessoa Jurídica</a></li>
+              <li><a href="/reestruturacao-financeira">Reestruturação Financeira de Produtor Rural e Empresas</a></li>
+              </ul>
+            </div>
+              <a class="dd-all" href="/areas-de-atuacao">Ver todas as áreas <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </div>
         </li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contato">Contato</a></li>
+        <li><a href="/#depoimentos">Depoimentos</a></li>
+        <li><a href="/#contato">Contato</a></li>
       </ul>
     </nav>
-
 
     <button type="button" class="nav-burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
       <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -154,29 +220,35 @@
     </button>
   </div>
 
-  <!-- Menu mobile -->
   <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
     <ul>
-      <li><a href="#inicio" data-close>Início</a></li>
-      <li><a href="#quem-somos" data-close>Quem Somos</a></li>
+      <li><a href="/#inicio" data-close>Início</a></li>
+      <li><a href="/#quem-somos" data-close>Quem Somos</a></li>
       <li>
         <button type="button" class="m-sub-toggle" aria-expanded="false" aria-controls="m-sub-areas">
           Áreas de Atuação
           <svg class="caret" width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <ul class="m-sub" id="m-sub-areas">
+          <li class="m-group-title">Dívida Rural</li>
           <li><a href="/prorrogacao" data-close>Prorrogação e Alongamento de Dívida Rural</a></li>
           <li><a href="/recuperacao-extrajudicial" data-close>Recuperação Extrajudicial (Recuperação Branca)</a></li>
           <li><a href="/recuperacao-judicial" data-close>Recuperação Judicial</a></li>
           <li><a href="/defesa-produtor-rural" data-close>Defesa do Produtor Rural</a></li>
+          <li class="m-group-title">Busca e Apreensão</li>
+          <li><a href="/busca-apreensao-veiculos" data-close>Busca e Apreensão de Veículos</a></li>
+          <li><a href="/busca-apreensao-maquinas" data-close>Busca e Apreensão de Máquinas Agrícolas</a></li>
+          <li class="m-group-title">Empresas</li>
+          <li><a href="/revisao-contratos-pj" data-close>Revisão de Contratos de Pessoa Jurídica</a></li>
+          <li><a href="/reestruturacao-financeira" data-close>Reestruturação Financeira de Produtor Rural e Empresas</a></li>
+          <li><a href="/areas-de-atuacao" data-close>Ver todas as áreas</a></li>
         </ul>
       </li>
-      <li><a href="#blog" data-close>Blog</a></li>
-      <li><a href="#contato" data-close>Contato</a></li>
+      <li><a href="/#depoimentos" data-close>Depoimentos</a></li>
+      <li><a href="/#contato" data-close>Contato</a></li>
     </ul>
     <a class="btn btn--whats" data-whats data-close aria-label="Fale com a Dra. Vanira pelo WhatsApp">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
-      Fale com a Dra. Vanira
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg> Fale com a Dra. Vanira
     </a>
   </nav>
 </header>
@@ -239,64 +311,6 @@
     </div>
   </section>
 
-  <!-- ============================ ÁREAS DE ATUAÇÃO ============================ -->
-  <section class="areas" id="areas" aria-labelledby="areas-title">
-    <div class="container">
-      <div class="section-head center reveal">
-        <h2 id="areas-title">Áreas de Atuação</h2>
-        <div class="rule"></div>
-      </div>
-
-      <div class="cards-grid">
-
-        <article class="service-card reveal" id="prorrogacao">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
-          </span>
-          <h3>Prorrogação e Alongamento de Dívida Rural</h3>
-          <p>Renegociação de contratos de crédito rural afetados por fatores alheios à vontade do produtor — quebra de safra, estiagem, geada ou queda abrupta de preços. Atuação com base no MCR (Manual de Crédito Rural) para alongar prazos e reduzir o peso da dívida sem comprometer a continuidade da atividade.</p>
-          <a class="link-arrow" href="/prorrogacao" aria-label="Saiba mais sobre Prorrogação e Alongamento de Dívida Rural">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </article>
-
-        <article class="service-card reveal" id="recuperacao-extrajudicial">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.4 8.4 0 01-3.6-.8L3 20.5l1.4-5.4A8.4 8.4 0 1121 11.5z"/></svg>
-          </span>
-          <h3>Recuperação Extrajudicial (Recuperação Branca)</h3>
-          <p>Negociação direta com instituições financeiras antes de qualquer processo judicial, buscando acordo, redução de encargos e reestruturação de dívida de forma rápida e discreta — preservando o relacionamento do produtor com o banco e evitando desgaste desnecessário.</p>
-          <a class="link-arrow" href="/recuperacao-extrajudicial" aria-label="Saiba mais sobre Recuperação Extrajudicial">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </article>
-
-        <article class="service-card reveal" id="recuperacao-judicial">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 7l-3 6a3 3 0 006 0L6 7z"/><path d="M18 7l-3 6a3 3 0 006 0l-3-6z"/><path d="M7 7h10"/><path d="M8 21h8"/></svg>
-          </span>
-          <h3>Recuperação Judicial</h3>
-          <p>Quando a negociação direta não é suficiente, atuamos na condução do processo de recuperação judicial do produtor rural, garantindo a suspensão de execuções, a proteção do patrimônio produtivo e um plano de pagamento viável para a continuidade da atividade.</p>
-          <a class="link-arrow" href="/recuperacao-judicial" aria-label="Saiba mais sobre Recuperação Judicial">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </article>
-
-        <article class="service-card reveal" id="defesa">
-          <span class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
-          </span>
-          <h3>Defesa do Produtor Rural</h3>
-          <p>Representação em ações revisionais, execuções e demais disputas envolvendo bancos e instituições financeiras, com foco na proteção do bem de família, dos maquinários e da terra produtiva.</p>
-          <a class="link-arrow" href="/defesa-produtor-rural" aria-label="Saiba mais sobre Defesa do Produtor Rural">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ============================ DIFERENCIAIS ============================ -->
   <section class="diferenciais" id="diferenciais" aria-labelledby="dif-title">
     <div class="container">
@@ -350,7 +364,55 @@
     </div>
   </section>
 
-  <!-- ============================ SOBRE (reforço) ============================ -->
+  
+  <!-- ============================ DEPOIMENTOS ============================ -->
+  <section class="depoimentos" id="depoimentos" aria-labelledby="dep-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="dep-title">O que dizem nossos clientes</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="dep-grid">
+        <figure class="dep-card reveal">
+          <blockquote>Super bem atendido e resolveram meu problema com busca e apreensão do meu veículo. O atendimento e competência dos profissionais será bem recomendados por mim.</blockquote>
+          <figcaption class="dep-author">
+            <span class="nome">Rander Prado</span>
+            <span class="data">14 de agosto de 2024</span>
+          </figcaption>
+        </figure>
+        <figure class="dep-card reveal">
+          <blockquote>Já conhecia a Dra. Vanira, e com isso me deu mais atenção no que estava acontecendo comigo. Recomendo o escritório dela pelo suporte incrível e a orientação clara.</blockquote>
+          <figcaption class="dep-author">
+            <span class="nome">Marlúcia Landim</span>
+            <span class="data">9 de agosto de 2024</span>
+          </figcaption>
+        </figure>
+        <figure class="dep-card reveal">
+          <blockquote>Doutora Vanira Araújo é excelente! Meu caso foi resolvido rapidamente com suporte constante. Super recomendo a profissional e sua equipe!</blockquote>
+          <figcaption class="dep-author">
+            <span class="nome">Franciele Braga</span>
+            <span class="data">28 de julho de 2024</span>
+          </figcaption>
+        </figure>
+        <figure class="dep-card reveal">
+          <blockquote>Foi maravilhoso conhecer o escritório da Dra. Vanira Araújo! Achei que não recuperaria meu carro, mas graças à equipe tudo deu certo. Obrigada!</blockquote>
+          <figcaption class="dep-author">
+            <span class="nome">Maria Abadia</span>
+            <span class="data">30 de junho de 2024</span>
+          </figcaption>
+        </figure>
+        <figure class="dep-card reveal">
+          <blockquote>Dra. Vanira foi um anjo no momento que mais precisei. Recomendo o trabalho excelente dessa equipe maravilhosa. Obrigada por tudo!</blockquote>
+          <figcaption class="dep-author">
+            <span class="nome">Conceição de Maria Oliveira</span>
+            <span class="data">20 de junho de 2024</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+<!-- ============================ SOBRE (reforço) ============================ -->
   <section class="sobre" id="sobre" aria-labelledby="sobre-title">
     <div class="container">
       <div class="prose reveal">
@@ -365,7 +427,40 @@
     </div>
   </section>
 
-  <!-- ============================ BLOG ============================ -->
+  
+  <!-- ============================ PERGUNTAS FREQUENTES ============================ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 id="faq-title">Perguntas frequentes</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Posso recuperar meu veículo apreendido?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-answer">Sim, é possível recorrer. É essencial agir rapidamente, pois o prazo para defesa já está correndo. Com uma boa estratégia jurídica, há grandes chances de reverter a situação e recuperar o veículo.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Se eu não fizer a defesa, posso ser cobrado de mais alguma coisa?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-answer">Sim, se o valor obtido pela venda do veículo não quitar a dívida, o banco pode continuar como seu credor e até converter a ação de busca e apreensão em execução para atingir outros bens seus.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Meu nome continuará no SPC?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-answer">Sim, até que a dívida seja totalmente quitada. O banco pode manter o seu nome nos órgãos de proteção ao crédito até a regularização completa do contrato.</div>
+        </details>
+        <details class="faq-item">
+          <summary>A busca e apreensão é legal?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-answer">Sim, o procedimento é permitido por lei. Contudo, ele deve cumprir todos os requisitos legais para ser válido. Caso contrário, é possível contestar judicialmente.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Posso evitar a perda do veículo?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-answer">Sim, é possível evitar a perda total negociando com o banco ou apresentando uma defesa consistente.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+<!-- ============================ BLOG ============================ -->
   <section class="blog" id="blog" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-head center reveal">
@@ -447,20 +542,21 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="brand-name">Vanira</span>
-        <div class="brand-sub">Advocacia</div>
-        <p style="margin-top:var(--sp-3); max-width:34ch; color:rgba(255,255,255,0.75);">Direito Bancário Rural e Recuperação Judicial e Extrajudicial em Uberaba/MG e todo o Triângulo Mineiro.</p>
+        <span class="brand-name">Vanira Araújo</span>
+        <div class="brand-sub">Advocacia Bancária e Agro</div>
+        <p style="margin-top:var(--sp-3); max-width:34ch; color:rgba(255,255,255,0.75);">Direito Bancário, Direito do Agronegócio e Recuperação Judicial e Extrajudicial.</p>
         <p class="signature">Ao lado de quem produz.</p>
       </div>
 
-      <nav class="footer-col" aria-label="Links do rodapé">
-        <h4>Navegação</h4>
+      <nav class="footer-col" aria-label="Áreas de atuação">
+        <h4>Áreas de Atuação</h4>
         <ul>
-          <li><a href="#inicio">Início</a></li>
-          <li><a href="#quem-somos">Quem Somos</a></li>
-          <li><a href="#areas">Áreas de Atuação</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="/prorrogacao">Prorrogação e Alongamento de Dívida Rural</a></li>
+          <li><a href="/recuperacao-extrajudicial">Recuperação Extrajudicial (Recuperação Branca)</a></li>
+          <li><a href="/recuperacao-judicial">Recuperação Judicial</a></li>
+          <li><a href="/defesa-produtor-rural">Defesa do Produtor Rural</a></li>
+          <li><a href="/busca-apreensao-veiculos">Busca e Apreensão de Veículos</a></li>
+          <li><a href="/areas-de-atuacao">Ver todas</a></li>
         </ul>
       </nav>
 
@@ -469,7 +565,7 @@
         <address style="font-style:normal">
           <div class="contact-line">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-            <span>Uberaba/MG · Atendimento 100% digital em todo o Brasil</span>
+            <span>Sede em Uberaba/MG. Atendimento 100% digital em todo o Brasil.</span>
           </div>
           <div class="contact-line">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2z"/></svg>
@@ -483,28 +579,20 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
             <span>Segunda a Sexta, das 7h às 22h</span>
           </div>
-          <div class="contact-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 3h4v4"/><path d="M10 14L19 5"/><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/></svg>
-            <span>Facebook: <a href="https://www.facebook.com/advogadavanira" target="_blank" rel="noopener noreferrer">fb.com/advogadavanira</a></span>
-          </div>
         </address>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <span>© <span id="ano"></span> Vanira Araújo Advogados. Todos os direitos reservados.</span>
-      <span>Dra. Vanira Araújo · OAB/MG 200.037 · CNPJ 39.991.601/0001-49</span>
+    <div class="footer-legal">
+      <p>Todos os direitos reservados, Vanira Araujo Advogados | OAB/MG: 200.037 | CNPJ: 39.991.601/0001-49 | <a href="/politica-de-privacidade">Política de Privacidade</a></p>
+      <p class="legal-disclaimer">Este site não é um produto Meta Plataforms, Inc, Google LLC, nem Facebook ou do Facebook inc. Além disso, não oferecemos nenhum tipo de serviços oficial do governo, NÃO praticamos fraude, não somos uma empresa que vende criptoativos ou qualquer outro serviço. Somos um escritório de advocacia, que oferece serviços jurídicos, privativos de advogados, de acordo com a legislação vigente e o Código de Ética e Disciplina da OAB do Brasil. Nós NÃO compartilhamos seus dados com ninguém.</p>
     </div>
   </div>
 </footer>
 
-<!-- ============================ WIDGET WHATSAPP FLUTUANTE ============================ -->
 <a class="whats-widget" data-whats aria-label="Precisa de ajuda? Fale com a Dra. Vanira pelo WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg>
-  <span class="widget-label">Precisa de ajuda?</span>
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 5 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.9L7.2 20A10 10 0 1012 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1112 20.2z"/></svg> <span class="widget-label">Precisa de ajuda?</span>
 </a>
-
-<script src="/main.js" defer></script>
 
 </body>
 </html>
