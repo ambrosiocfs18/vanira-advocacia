@@ -833,3 +833,47 @@
 @media (min-width: 1024px) {
   .dep-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ==========================================================================
+   HERO COM IMAGEM (páginas de área)
+   A imagem entra atrás de um véu verde forte, o mesmo tratamento da hero
+   da home. Isso mantém o texto em branco sempre acima de 4.5:1, qualquer
+   que seja a foto, e amarra as páginas à identidade da marca.
+   ========================================================================== */
+.page-hero--media {
+  position: relative;
+  isolation: isolate;
+  border-bottom: none;
+  color: #fff;
+  background-image:
+    linear-gradient(90deg, rgba(0,36,24,0.94) 0%, rgba(0,36,24,0.82) 42%, rgba(0,36,24,0.55) 100%),
+    linear-gradient(180deg, rgba(0,36,24,0.35) 0%, rgba(0,28,16,0.65) 100%),
+    var(--hero-img);
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat;
+  padding-block: 72px;
+}
+.page-hero--media .container { max-width: var(--maxw); }
+.page-hero--media h1 { color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.28); }
+.page-hero--media .lead { color: rgba(255,255,255,0.92); }
+.page-hero--media .breadcrumb { color: rgba(255,255,255,0.72); }
+.page-hero--media .breadcrumb a { color: #fff; border-bottom-color: transparent; }
+.page-hero--media .breadcrumb a:hover,
+.page-hero--media .breadcrumb a:focus-visible { border-bottom-color: var(--dourado-claro); }
+.page-hero--media .breadcrumb li + li::before { color: var(--dourado-claro); }
+.page-hero--media .breadcrumb [aria-current="page"] { color: rgba(255,255,255,0.72); }
+
+/* Fio dourado no rodapé da faixa, fechando o bloco */
+.page-hero--media::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--dourado), var(--dourado-claro), transparent 75%);
+}
+
+@media (min-width: 768px) {
+  .page-hero--media { padding-block: 96px; }
+  .page-hero--media .lead { max-width: 60ch; }
+}
+@media (min-width: 1024px) {
+  .page-hero--media { padding-block: 116px; }
+}

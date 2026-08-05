@@ -221,8 +221,9 @@ FIRM_LD = {
 # --------------------------------------------------------------------------
 # BLOCOS COMPARTILHADOS
 # --------------------------------------------------------------------------
-def head(title, desc, path, ld_graph):
+def head(title, desc, path, ld_graph, preload=None):
     url = BASE + path
+    pre = ('\n<link rel="preload" as="image" href="%s" fetchpriority="high">' % preload) if preload else ""
     return u"""<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{desc}">
@@ -250,9 +251,9 @@ def head(title, desc, path, ld_graph):
 <script type="application/ld+json">
 {ld}
 </script>
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css">{pre}
 <script src="/main.js" defer></script>""".format(
-        title=title, desc=desc, url=url, base=BASE,
+        title=title, desc=desc, url=url, base=BASE, pre=pre,
         ld=json.dumps({"@context": "https://schema.org", "@graph": ld_graph},
                       ensure_ascii=False, indent=1))
 
@@ -425,7 +426,7 @@ def attorney_block():
 """.format(t=TICK)
 
 
-def page(title, desc, path, ld_graph, body, current=None):
+def page(title, desc, path, ld_graph, body, current=None, preload=None):
     return u"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -443,7 +444,7 @@ def page(title, desc, path, ld_graph, body, current=None):
 
 </body>
 </html>
-""".format(head=head(title, desc, path, ld_graph), header=header(current),
+""".format(head=head(title, desc, path, ld_graph, preload), header=header(current),
            body=body, footer=footer())
 
 
@@ -458,8 +459,10 @@ def build_area(a):
         '          <a class="other-card" href="/%s">%s %s</a>' % (o["slug"], o["nav"], ARROW)
         for o in AREAS if o["slug"] != a["slug"])
 
+    img = "/hero-%s.jpg" % a["slug"]
     body = u"""
-  <section class="page-hero" aria-labelledby="page-title">
+  <section class="page-hero page-hero--media" aria-labelledby="page-title"
+           style="--hero-img:url('{img}')">
     <div class="container">
       <nav class="breadcrumb" aria-label="Você está aqui">
         <ol>
@@ -511,7 +514,7 @@ def build_area(a):
       </div>
     </div>
   </section>
-""".format(h1=a["h1"], lead=a["lead"], wa=a["wa"], wasvg=WA,
+""".format(h1=a["h1"], lead=a["lead"], wa=a["wa"], wasvg=WA, img=img,
            servicos=servicos, outras=outras, attorney=attorney_block())
 
     ld = [
@@ -524,7 +527,8 @@ def build_area(a):
          "item": BASE + "/areas-de-atuacao"},
         {"@type": "ListItem", "position": 3, "name": a["nav"], "item": BASE + "/" + a["slug"]}]},
     ]
-    return page(a["title"], a["desc"], "/" + a["slug"], ld, body, current=a["slug"])
+    return page(a["title"], a["desc"], "/" + a["slug"], ld, body,
+                current=a["slug"], preload=img)
 
 
 # --------------------------------------------------------------------------
