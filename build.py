@@ -166,6 +166,13 @@ AREAS = [
 
 GRUPOS = ["Dívida Rural", "Busca e Apreensão", "Empresas"]
 
+# Áreas ligadas ao produtor rural: recebem o bloco "Ao lado do produtor em cada
+# etapa". Ficam de fora busca e apreensão de veículos e revisão de contratos PJ.
+RURAIS = {"prorrogacao", "recuperacao-extrajudicial", "recuperacao-judicial",
+          "defesa-produtor-rural", "busca-apreensao-maquinas", "reestruturacao-financeira"}
+for _a in AREAS:
+    _a["rural"] = _a["slug"] in RURAIS
+
 # --------------------------------------------------------------------------
 # DEPOIMENTOS REAIS (avaliacoes publicas no Google, com nome e data)
 # --------------------------------------------------------------------------
@@ -451,6 +458,21 @@ def page(title, desc, path, ld_graph, body, current=None, preload=None):
 # --------------------------------------------------------------------------
 # PAGINA DE AREA
 # --------------------------------------------------------------------------
+def sobre_block():
+    """Reforço institucional focado no produtor rural (só nas áreas rurais)."""
+    return u"""
+  <section class="sobre" aria-labelledby="sobre-title">
+    <div class="container">
+      <div class="prose reveal">
+        <h2 id="sobre-title">Ao lado do produtor em cada etapa</h2>
+        <div class="rule"></div>
+        <p style="margin-top:var(--sp-4)">A Vanira Advocacia é um escritório especializado em Direito Bancário Rural e Recuperação Judicial e Extrajudicial, com atuação em Uberaba e em todo o Triângulo Mineiro. Nossa equipe acompanha o produtor rural em cada etapa — da negociação com o banco até, se necessário, a defesa em juízo — com linguagem acessível e comunicação direta pelo WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+"""
+
+
 def build_area(a):
     servicos = "\n".join(
         '          <li class="svc-item"><span class="tick" aria-hidden="true">%s</span><span>%s</span></li>'
@@ -491,7 +513,7 @@ def build_area(a):
       </ul>
     </div>
   </section>
-{attorney}
+{sobre}{attorney}
   <section class="cta-band" aria-labelledby="cta-title">
     <div class="container">
       <h2 id="cta-title">Fale com a Dra. Vanira</h2>
@@ -515,7 +537,8 @@ def build_area(a):
     </div>
   </section>
 """.format(h1=a["h1"], lead=a["lead"], wa=a["wa"], wasvg=WA, img=img,
-           servicos=servicos, outras=outras, attorney=attorney_block())
+           servicos=servicos, outras=outras, attorney=attorney_block(),
+           sobre=(sobre_block() if a.get("rural") else ""))
 
     ld = [
       {"@type": "Service", "name": a["nav"], "serviceType": a["nav"], "description": a["desc"],
