@@ -914,9 +914,15 @@
 .wall-author { display: flex; align-items: center; gap: 12px; margin-top: var(--sp-4); }
 .wall-avatar {
   flex: 0 0 auto; width: 44px; height: 44px; border-radius: var(--r-pill);
+  object-fit: cover; display: block;
+  background: var(--off-white);
+  box-shadow: 0 0 0 2px rgba(198,145,42,0.35);
+}
+.wall-avatar--ini {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--verde-profundo); color: var(--dourado-claro);
   font-family: var(--font-display); font-weight: 600; font-size: 17px;
+  box-shadow: none;
 }
 .wall-meta { display: flex; flex-direction: column; line-height: 1.3; }
 .wall-meta .nome { font-weight: 600; color: var(--verde-profundo); font-size: 15px; }
