@@ -713,6 +713,32 @@ def build_privacy():
 
 
 # --------------------------------------------------------------------------
+# SINCRONIA DA HOME
+# A home (index.html) tem conteudo proprio (video, depoimentos, FAQ...), mas o
+# header e o rodape precisam bater com as areas. Aqui eles sao reescritos a
+# partir das mesmas funcoes, para o menu nunca sair de sincronia.
+# --------------------------------------------------------------------------
+def sync_home():
+    import re
+    p = os.path.join(OUT, "index.html")
+    if not os.path.exists(p):
+        print("  index.html nao encontrado, home nao sincronizada")
+        return
+    s = io.open(p, encoding="utf-8").read()
+    before = s
+    full_footer = footer()
+    only_footer = full_footer[:full_footer.index("</footer>") + len("</footer>")]
+    s = re.sub(r'<a class="skip-link".*?</header>', lambda m: header(), s, count=1, flags=re.S)
+    s = re.sub(r'<footer class="site-footer">.*?</footer>', lambda m: only_footer,
+               s, count=1, flags=re.S)
+    if s != before:
+        io.open(p, "w", encoding="utf-8").write(s)
+        print("  home: header e rodape sincronizados")
+    else:
+        print("  home: nada a sincronizar")
+
+
+# --------------------------------------------------------------------------
 # ESCRITA
 # --------------------------------------------------------------------------
 def w(name, content):
@@ -726,6 +752,7 @@ if __name__ == "__main__":
         w(a["slug"] + ".html", build_area(a))
     w("areas-de-atuacao.html", build_hub())
     w("politica-de-privacidade.html", build_privacy())
+    sync_home()
 
     hoje = datetime.date.today().isoformat()
     urls = ["/", "/areas-de-atuacao"] + ["/" + a["slug"] for a in AREAS] + ["/politica-de-privacidade"]
