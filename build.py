@@ -41,6 +41,7 @@ IC = {
  "tractor":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="16.5" r="3.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M4 13V8h5l2 5"/><path d="M11 8h4l1 5"/></svg>',
  "doc":   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>',
  "chart": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg>',
+ "house": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5.5h5V20"/></svg>',
 }
 
 # --------------------------------------------------------------------------
@@ -103,7 +104,7 @@ AREAS = [
                 "Ação contra venda casada em contratos de crédito rural",
                 "Revisão de contratos"]),
 
- dict(slug="busca-apreensao-veiculos", icon="car", grupo="Busca e Apreensão",
+ dict(slug="busca-apreensao-veiculos", icon="car", grupo="Defesa de Bens",
       nav="Busca e Apreensão de Veículos",
       h1="Busca e Apreensão de Veículos",
       title="Defesa em Busca e Apreensão de Veículos | Vanira Araújo Advogados",
@@ -118,7 +119,7 @@ AREAS = [
                 "Recuperação de veículos apreendidos por bancos e financeiras",
                 "Renegociação de dívidas bancárias"]),
 
- dict(slug="busca-apreensao-maquinas", icon="tractor", grupo="Busca e Apreensão",
+ dict(slug="busca-apreensao-maquinas", icon="tractor", grupo="Defesa de Bens",
       nav="Busca e Apreensão de Máquinas Agrícolas",
       h1="Busca e Apreensão de Máquinas Agrícolas",
       title="Defesa em Busca e Apreensão de Máquinas Agrícolas | Vanira Araújo Advogados",
@@ -133,6 +134,22 @@ AREAS = [
                 "Revisão do contrato de financiamento da máquina",
                 "Análise de juros e encargos cobrados",
                 "Negociação com a instituição financeira"]),
+
+ dict(slug="suspensao-leilao-imoveis", icon="house", grupo="Defesa de Bens",
+      nav="Suspensão de Leilão de Imóveis",
+      h1="Suspensão de Leilão de Imóveis",
+      title="Suspensão de Leilão de Imóveis Urbanos e Rurais | Vanira Araújo Advogados",
+      desc=("Defesa para suspender o leilão de imóveis urbanos e rurais em execução de dívida "
+            "bancária, financiamento imobiliário ou hipoteca. Proteção do patrimônio."),
+      lead=("Atuação para suspender o leilão de imóveis urbanos e rurais levados a hasta pública em "
+            "execuções de dívida bancária, financiamento imobiliário e hipotecas. Buscamos suspender "
+            "o leilão, discutir o valor cobrado e preservar o imóvel, seja a moradia da família ou a "
+            "terra produtiva."),
+      wa="Olá! Gostaria de falar com a Dra. Vanira sobre a suspensão de leilão de imóvel. Pode me ajudar?",
+      servicos=["Suspensão de leilão de imóvel urbano ou rural",
+                "Defesa em execução hipotecária e de financiamento imobiliário",
+                "Revisão do contrato e do valor da dívida",
+                "Proteção do bem de família e da terra produtiva"]),
 
  dict(slug="revisao-contratos-pj", icon="doc", grupo="Empresas",
       nav="Revisão de Contratos de Pessoa Jurídica",
@@ -164,7 +181,7 @@ AREAS = [
                 "Recuperação judicial e extrajudicial quando necessário"]),
 ]
 
-GRUPOS = ["Dívida Rural", "Busca e Apreensão", "Empresas"]
+GRUPOS = ["Dívida Rural", "Defesa de Bens", "Empresas"]
 
 # Áreas ligadas ao produtor rural: recebem o bloco "Ao lado do produtor em cada
 # etapa". Ficam de fora busca e apreensão de veículos e revisão de contratos PJ.
