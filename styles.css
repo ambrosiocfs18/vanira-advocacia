@@ -1131,3 +1131,49 @@
 @media (min-width: 768px) {
   :root { --r-section: 40px; }
 }
+
+/* ==========================================================================
+   SUPERFÍCIE CREME — dá contraste real para as bordas arredondadas
+   O off-white antigo (#FAF8F6) era quase branco e o arredondamento sumia.
+   O creme puxa para o dourado da marca e deixa o recorte evidente.
+   ========================================================================== */
+:root { --creme: #F7EEDC; }
+
+.processo {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(198,145,42,0.14), transparent 62%),
+    var(--creme);
+}
+.depoimentos { background: var(--creme); }
+
+/* Cartões brancos ganham definição sobre o creme */
+.dep-card, .wall-card {
+  background: #fff;
+  border-color: rgba(198,145,42,0.22);
+}
+
+/* ==========================================================================
+   CONTATO — só o topo arredondado, fechando a página
+   ========================================================================== */
+.contato {
+  border-top-left-radius: var(--r-section);
+  border-top-right-radius: var(--r-section);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   HERO DAS ÁREAS — menos véu, mais foto
+   O véu cai de ~0,96 para 0,72 na faixa do texto e para 0,18 na borda
+   direita. Mesmo com uma foto totalmente branca embaixo, o texto branco
+   fica em 6,7:1, acima do mínimo AA de 4,5:1.
+   ========================================================================== */
+.page-hero--media {
+  background-image:
+    linear-gradient(90deg, rgba(0,36,24,0.72) 0%, rgba(0,36,24,0.48) 50%, rgba(0,36,24,0.18) 100%),
+    linear-gradient(180deg, rgba(0,36,24,0.00) 0%, rgba(0,28,16,0.28) 100%),
+    var(--hero-img);
+}
+/* Sombra um pouco mais firme, já que o fundo agora é mais claro */
+.page-hero--media h1 { text-shadow: 0 2px 18px rgba(0,20,10,0.55); }
+.page-hero--media .lead { text-shadow: 0 1px 10px rgba(0,20,10,0.45); }
+.page-hero--media .breadcrumb { text-shadow: 0 1px 8px rgba(0,20,10,0.5); }
