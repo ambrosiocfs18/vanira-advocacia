@@ -1110,3 +1110,24 @@
   z-index: 130; pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) { .read-progress { display: none; } }
+
+/* ==========================================================================
+   SEÇÕES ARREDONDADAS ("O que fazemos" e "Depoimentos")
+   As duas viram blocos off-white de cantos arredondados. Para o
+   arredondamento aparecer, as seções vizinhas ficam brancas: assim o
+   canto revela o branco do corpo da página.
+   ========================================================================== */
+:root { --r-section: 28px; }
+
+/* Vizinhas em branco, para o bloco arredondado se destacar */
+.quem-somos { background: var(--branco); }
+
+.processo,
+.depoimentos {
+  border-radius: var(--r-section);
+  overflow: hidden;                 /* garante o corte do conteúdo nos cantos */
+}
+
+@media (min-width: 768px) {
+  :root { --r-section: 40px; }
+}
