@@ -780,7 +780,7 @@ def build_escritorio():
 
     body = u"""
   <section class="page-hero page-hero--media" aria-labelledby="page-title"
-           style="--hero-img:url('/hero-defesa-produtor-rural.jpg')">
+           style="--hero-img:url('/hero-nosso-escritorio.jpg')">
     <div class="container">
       <nav class="breadcrumb" aria-label="Você está aqui">
         <ol>
@@ -864,7 +864,7 @@ def build_escritorio():
                 "Rural com sede em Uberaba/MG, mais de 10 anos de atuação e atendimento digital "
                 "em todo o Brasil.",
                 "/nosso-escritorio", ld, body, current="escritorio",
-                preload="/hero-defesa-produtor-rural.jpg")
+                preload="/hero-nosso-escritorio.jpg")
 
 
 # --------------------------------------------------------------------------
