@@ -1085,8 +1085,111 @@
 .sobre p { color: rgba(255,255,255,0.85); }
 
 /* Régua dourada mais viva sobre fundo escuro */
-.cta-band .rule, .sobre .rule, .page-hero--media .rule, .destaques .rule {
+.cta-band .rule, .sobre .rule, .page-hero--media .rule, .destaques .rule,
+.video-area .rule {
   background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
+}
+
+/* ==========================================================================
+   VÍDEO DA DRA. VANIRA — fachada com capa local
+   O iframe do YouTube não existe no HTML: o que aparece é uma capa hospedada
+   aqui com um botão. O player só é criado no clique (main.js), então a página
+   carrega sem nenhuma requisição ao Google e sem cookie de terceiro.
+   Faixa verde para separar as duas seções brancas vizinhas e para o vídeo
+   ganhar contraste, como acontece em .sobre e .cta-band.
+   ========================================================================== */
+.video-area {
+  background:
+    radial-gradient(110% 130% at 12% 0%, rgba(232,178,55,0.14), transparent 55%),
+    linear-gradient(160deg, var(--verde-profundo), var(--verde-escuro));
+  color: #fff;
+}
+.video-area h2 { color: #fff; }
+.video-chamada {
+  color: rgba(255,255,255,0.86); font-size: 17px; line-height: 1.6;
+  margin-top: var(--sp-3); max-width: 58ch; margin-inline: auto;
+}
+
+.video-wrap { max-width: 880px; margin-inline: auto; }
+
+/* aspect-ratio reserva a altura antes da capa chegar: sem salto de layout */
+.video-facade {
+  position: relative; display: block; width: 100%;
+  aspect-ratio: 16 / 9; overflow: hidden;
+  padding: 0; border: 1px solid rgba(232,178,55,0.35);
+  border-radius: var(--r-img); background: var(--verde-escuro);
+  cursor: pointer; color: #fff;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.32);
+  transition: transform .28s var(--ease-out), box-shadow .28s var(--ease-out),
+              border-color .28s var(--ease-out);
+}
+.video-facade > img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Véu leve por cima da capa. Fica de propósito discreto: quem sustenta a
+   legibilidade do botão é o anel opaco abaixo, não o escurecimento da foto,
+   porque o rosto da advogada é justamente o que constrói confiança aqui. */
+.video-scrim {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 60% at 50% 50%, rgba(0,36,24,0.22), transparent 70%),
+    linear-gradient(180deg, rgba(0,36,24,0.06) 0%, rgba(0,28,16,0.46) 100%);
+  transition: opacity .28s var(--ease-out);
+}
+
+/* O anel verde é opaco de propósito: com véu translúcido o dourado sumia
+   contra as partes claras da foto (medido: 1,3:1). Opaco, o botão fica em
+   5,9:1 com o anel e o anel em 12,3:1 com o pixel mais claro em volta, ou
+   seja, o controle continua visível sobre qualquer capa que venha depois. */
+.video-play {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  display: grid; place-items: center;
+  width: 76px; height: 76px; border-radius: var(--r-pill);
+  background: var(--dourado); color: var(--verde-profundo);
+  box-shadow: 0 0 0 7px var(--verde-escuro), 0 12px 30px rgba(0,0,0,0.40);
+  transition: transform .28s var(--ease-out), background .28s var(--ease-out);
+}
+.video-play svg { width: 34px; height: 34px; margin-left: 3px; }
+
+.video-dur {
+  position: absolute; right: var(--sp-3); bottom: var(--sp-3);
+  padding: 4px 10px; border-radius: var(--r-btn);
+  background: rgba(0,24,14,0.78); color: #fff;
+  font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+
+.video-nota {
+  margin-top: var(--sp-3); text-align: center;
+  color: rgba(255,255,255,0.70); font-size: 13.5px; line-height: 1.5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .video-facade:hover { transform: translateY(-3px); border-color: var(--dourado); }
+  .video-facade:hover .video-play { transform: scale(1.07); background: var(--dourado-claro); }
+  .video-facade:hover .video-scrim { opacity: 0.75; }
+}
+.video-facade:active { transform: translateY(0) scale(0.995); }
+.video-facade:focus-visible {
+  outline: 3px solid var(--dourado-claro); outline-offset: 3px;
+}
+
+/* O iframe herda a mesma moldura da capa que ele substitui */
+.video-wrap iframe {
+  width: 100%; aspect-ratio: 16 / 9; display: block;
+  border: 1px solid rgba(232,178,55,0.35); border-radius: var(--r-img);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.32); background: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-facade, .video-play, .video-scrim { transition: none; }
+  .video-facade:hover { transform: none; }
+  .video-facade:hover .video-play { transform: scale(1); }
+}
+
+@media (min-width: 768px) {
+  .video-play { width: 88px; height: 88px; }
+  .video-play svg { width: 40px; height: 40px; }
+  .video-chamada { font-size: 18px; }
 }
 
 /* ==========================================================================

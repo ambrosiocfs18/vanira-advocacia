@@ -234,4 +234,30 @@
       else window.addEventListener('load', carregar, { once: true });
     }
   }
+
+  /* ---------- Vídeos do YouTube com fachada ----------
+     A página entrega só a capa (hospedada aqui) e um botão. O iframe do
+     YouTube nasce no clique, e não antes: assim o visitante não faz nenhuma
+     requisição ao Google nem recebe cookie de terceiro só por abrir a página,
+     que é o que a política de privacidade promete. Também evita baixar o
+     player (~1 MB) para quem nunca vai assistir. Domínio youtube-nocookie. */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-yt]'), function (botao) {
+    botao.addEventListener('click', function () {
+      var id = botao.getAttribute('data-yt');
+      if (!id) return;
+
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+                  '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      frame.title = botao.getAttribute('data-yt-title') || 'Vídeo da Dra. Vanira';
+      frame.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.setAttribute('allowfullscreen', '');
+      frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+
+      botao.parentNode.replaceChild(frame, botao);
+      /* Devolve o foco para quem navega pelo teclado: o botão clicado sumiu. */
+      frame.setAttribute('tabindex', '-1');
+      frame.focus();
+    });
+  });
 })();

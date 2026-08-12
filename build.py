@@ -492,6 +492,69 @@ def sobre_block():
 """
 
 
+# --------------------------------------------------------------------------
+# VIDEOS DA DRA. VANIRA (canal proprio no YouTube)
+# O player NAO e carregado junto com a pagina: entra so depois do clique.
+# Ate la o visitante nao faz nenhuma requisicao ao Google nem recebe cookie
+# de terceiro, o que mantem a promessa da politica de privacidade e nao
+# pesa no carregamento. A capa fica hospedada aqui, como as demais imagens.
+# --------------------------------------------------------------------------
+VIDEOS = {
+ "busca-apreensao-veiculos": dict(
+    yt="d97DNOZs6IE",
+    titulo="Seu veículo foi apreendido por atraso no financiamento?",
+    chamada=("Em menos de um minuto, a Dra. Vanira explica o que ainda dá para fazer "
+             "quando o banco já levou o veículo."),
+    dur_iso="PT52S", dur="0:52", publicado="2025-02-03"),
+}
+
+PLAY = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+        '<path d="M9 6.5v11a1 1 0 001.53.85l8.5-5.5a1 1 0 000-1.7l-8.5-5.5A1 1 0 009 6.5z"/></svg>')
+
+
+def video_block(a):
+    """Fachada de video: capa local + botao. O iframe entra no clique (main.js)."""
+    v = VIDEOS.get(a["slug"])
+    if not v:
+        return ""
+    return u"""
+  <section class="video-area" aria-labelledby="video-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="video-title">A Dra. Vanira explica</h2>
+        <div class="rule" style="margin-inline:auto"></div>
+        <p class="video-chamada">{chamada}</p>
+      </div>
+
+      <div class="video-wrap reveal">
+        <button type="button" class="video-facade" data-yt="{yt}" data-yt-title="{titulo}"
+                aria-label="Reproduzir o vídeo &quot;{titulo}&quot;, {dur} de duração. O player do YouTube só é carregado depois deste clique.">
+          <img src="/video-{slug}.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <span class="video-scrim" aria-hidden="true"></span>
+          <span class="video-play" aria-hidden="true">{play}</span>
+          <span class="video-dur" aria-hidden="true">{dur}</span>
+        </button>
+        <p class="video-nota">O player do YouTube só é carregado quando você clica. Até lá, nada é enviado ao Google.</p>
+      </div>
+    </div>
+  </section>
+""".format(yt=v["yt"], titulo=v["titulo"], chamada=v["chamada"],
+           dur=v["dur"], slug=a["slug"], play=PLAY)
+
+
+def video_ld(a):
+    """VideoObject para o JSON-LD da area, so com dado real do proprio video."""
+    v = VIDEOS.get(a["slug"])
+    if not v:
+        return []
+    return [{"@type": "VideoObject", "name": v["titulo"], "description": v["chamada"],
+             "thumbnailUrl": BASE + "/video-" + a["slug"] + ".jpg",
+             "uploadDate": v["publicado"], "duration": v["dur_iso"],
+             "embedUrl": "https://www.youtube-nocookie.com/embed/" + v["yt"],
+             "contentUrl": "https://www.youtube.com/watch?v=" + v["yt"],
+             "publisher": {"@id": FIRM_LD["@id"]}}]
+
+
 def build_area(a):
     servicos = "\n".join(
         '          <li class="svc-item"><span class="tick" aria-hidden="true">%s</span><span>%s</span></li>'
@@ -532,7 +595,7 @@ def build_area(a):
       </ul>
     </div>
   </section>
-{sobre}{attorney}
+{video}{sobre}{attorney}
   <section class="cta-band" aria-labelledby="cta-title">
     <div class="container">
       <h2 id="cta-title">Fale com a Dra. Vanira</h2>
@@ -557,6 +620,7 @@ def build_area(a):
   </section>
 """.format(h1=a["h1"], lead=a["lead"], wa=a["wa"], wasvg=WA, img=img,
            servicos=servicos, outras=outras, attorney=attorney_block(),
+           video=video_block(a),
            sobre=(sobre_block() if a.get("rural") else ""))
 
     ld = [
@@ -568,7 +632,7 @@ def build_area(a):
         {"@type": "ListItem", "position": 2, "name": "Áreas de Atuação",
          "item": BASE + "/areas-de-atuacao"},
         {"@type": "ListItem", "position": 3, "name": a["nav"], "item": BASE + "/" + a["slug"]}]},
-    ]
+    ] + video_ld(a)
     return page(a["title"], a["desc"], "/" + a["slug"], ld, body,
                 current=a["slug"], preload=img)
 
@@ -719,7 +783,8 @@ def build_privacy():
       <p>A qualquer momento você pode solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade ou exclusão dos seus dados, além de revogar consentimento. Basta escrever para <a href="mailto:contato@advvaniraaraujo.com.br">contato@advvaniraaraujo.com.br</a>.</p>
 
       <h2>Cookies e medição de audiência</h2>
-      <p>O site é estático e não instala cookies de rastreamento ou de publicidade. O vídeo e as imagens são servidos pelo próprio site, sem incorporação de players de terceiros.</p>
+      <p>O site é estático e não instala cookies de rastreamento ou de publicidade. O vídeo de apresentação e as imagens são servidos pelo próprio site.</p>
+      <p>Algumas páginas trazem vídeos da Dra. Vanira publicados no YouTube. O player não é carregado junto com a página: enquanto você não clicar em reproduzir, nenhuma informação sua é enviada ao YouTube. Ao clicar, o vídeo passa a ser carregado pelo YouTube (Google) no modo de privacidade reforçada (<span lang="en">youtube-nocookie</span>), e a partir daí valem também os termos e a política de privacidade do Google. Se preferir não acionar o player, o conteúdo do vídeo é sempre explicado em texto na própria página e pelo WhatsApp.</p>
 
       <h2>Alterações</h2>
       <p>Esta política pode ser atualizada para refletir mudanças no site ou na legislação. A versão vigente é sempre a publicada nesta página.</p>
