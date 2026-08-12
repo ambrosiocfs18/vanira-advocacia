@@ -186,7 +186,8 @@ GRUPOS = ["Dívida Rural", "Defesa de Bens", "Empresas"]
 # Áreas ligadas ao produtor rural: recebem o bloco "Ao lado do produtor em cada
 # etapa". Ficam de fora busca e apreensão de veículos e revisão de contratos PJ.
 RURAIS = {"prorrogacao", "recuperacao-extrajudicial", "recuperacao-judicial",
-          "defesa-produtor-rural", "busca-apreensao-maquinas", "reestruturacao-financeira"}
+          "defesa-produtor-rural", "busca-apreensao-maquinas", "reestruturacao-financeira",
+          "suspensao-leilao-imoveis"}
 for _a in AREAS:
     _a["rural"] = _a["slug"] in RURAIS
 
@@ -310,6 +311,7 @@ def header(current=None):
     mob = "\n".join(mob)
 
     hub_cur = ' aria-current="page"' if current == "areas" else ""
+    esc_cur = ' aria-current="page"' if current == "escritorio" else ""
 
     return u"""<a class="skip-link" href="#main">Pular para o conteúdo principal</a>
 
@@ -323,7 +325,7 @@ def header(current=None):
     <nav class="primary-nav" aria-label="Navegação principal">
       <ul class="nav-list">
         <li><a href="/#inicio">Início</a></li>
-        <li><a href="/#quem-somos">Quem Somos</a></li>
+        <li><a href="/nosso-escritorio"{esc}>Nosso Escritório</a></li>
         <li class="has-dropdown">
           <a class="nav-toggle" href="/areas-de-atuacao" aria-expanded="false"
              aria-controls="dropdown-areas"{hub}>
@@ -351,7 +353,7 @@ def header(current=None):
   <nav class="mobile-nav" id="mobile-nav" aria-label="Navegação mobile">
     <ul>
       <li><a href="/#inicio" data-close>Início</a></li>
-      <li><a href="/#quem-somos" data-close>Quem Somos</a></li>
+      <li><a href="/nosso-escritorio" data-close>Nosso Escritório</a></li>
       <li>
         <button type="button" class="m-sub-toggle" aria-expanded="false" aria-controls="m-sub-areas">
           Áreas de Atuação
@@ -369,7 +371,7 @@ def header(current=None):
       {wa} Fale com a Dra. Vanira
     </a>
   </nav>
-</header>""".format(desk=desk, mob=mob, wa=WA, arrow=ARROW_SM, hub=hub_cur)
+</header>""".format(desk=desk, mob=mob, wa=WA, arrow=ARROW_SM, hub=hub_cur, esc=esc_cur)
 
 
 def footer():
@@ -713,6 +715,137 @@ def build_privacy():
 
 
 # --------------------------------------------------------------------------
+# NOSSO ESCRITORIO
+# Conteudo baseado apenas em dados verificaveis: sede, OAB, CNPJ, tempo de
+# atuacao e o proprio texto institucional da copy. Sem premios, sem numero
+# de colaboradores, sem estatistica de casos.
+# --------------------------------------------------------------------------
+DESTAQUES = [
+ ("shield", "Especializado no produtor rural",
+  "Direito Bancário Rural, do endividamento à defesa em juízo."),
+ ("clock", "Mais de 10 anos de atuação",
+  "Experiência acumulada em dívida rural e direito bancário."),
+ ("house", "Sede em Uberaba/MG",
+  "No coração do Triângulo Mineiro, perto de quem produz."),
+ ("chat", "Atendimento 100% digital",
+  "Atuação em todo o Brasil, com contato direto pelo WhatsApp."),
+]
+
+PILARES = [
+ ("Missão", "scale",
+  "Defender o produtor rural e as empresas em um dos momentos mais delicados da atividade, o endividamento, com soluções técnicas, humanizadas e individuais para cada caso."),
+ ("Como trabalhamos", "chat",
+  "Nosso trabalho começa muito antes do processo: começa ouvindo o produtor. Entendemos a atividade antes de propor qualquer caminho jurídico."),
+ ("No que acreditamos", "shield",
+  "Por trás de cada dívida existe uma família, uma propriedade e uma história. Linguagem acessível, transparência em cada etapa e proximidade com quem vive a lida do campo."),
+]
+
+
+def build_escritorio():
+    destaques = "\n".join(
+        u"""        <article class="dest-card reveal">
+          <span class="dest-icon" aria-hidden="true">{ic}</span>
+          <h3>{t}</h3>
+          <p>{d}</p>
+        </article>""".format(ic=IC[i], t=t, d=d) for i, t, d in DESTAQUES)
+
+    pilares = "\n".join(
+        u"""        <article class="pilar-card reveal">
+          <span class="pilar-icon" aria-hidden="true">{ic}</span>
+          <h3>{t}</h3>
+          <p>{d}</p>
+        </article>""".format(ic=IC[i], t=t, d=d) for t, i, d in PILARES)
+
+    body = u"""
+  <section class="page-hero page-hero--media" aria-labelledby="page-title"
+           style="--hero-img:url('/hero-defesa-produtor-rural.jpg')">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Você está aqui">
+        <ol>
+          <li><a href="/">Início</a></li>
+          <li><span aria-current="page">Nosso Escritório</span></li>
+        </ol>
+      </nav>
+      <h1 id="page-title">Nosso Escritório</h1>
+      <div class="rule"></div>
+      <p class="lead">Um escritório construído para defender quem produz. Conheça a Vanira Araújo Advogados, nossa forma de trabalhar e o que nos move.</p>
+    </div>
+  </section>
+
+  <section class="destaques" aria-label="Destaques do escritório">
+    <div class="container">
+      <div class="dest-grid">
+{destaques}
+      </div>
+    </div>
+  </section>
+
+  <section class="esc-sobre" aria-labelledby="esc-sobre-title">
+    <div class="container esc-grid">
+      <figure class="esc-media reveal">
+        <img src="/dra-vanira.jpg" alt="Dra. Vanira Araújo, advogada responsável pelo escritório"
+             width="862" height="1280" loading="lazy" decoding="async">
+        <figcaption>Dra. Vanira Araújo, OAB/MG 200.037</figcaption>
+      </figure>
+      <div class="esc-texto">
+        <div class="section-head reveal">
+          <h2 id="esc-sobre-title">Vanira Araújo Advogados</h2>
+          <div class="rule"></div>
+        </div>
+        <div class="prose reveal">
+          <p>O escritório da Dra. Vanira foi constituído com o propósito de defender o produtor rural em um dos momentos mais delicados da atividade: o endividamento. Com sede em Uberaba/MG e atuação em todo o Triângulo Mineiro, o escritório reúne uma equipe especializada em direito bancário rural, com foco em soluções técnicas, humanizadas e individuais para cada produtor.</p>
+          <p>A atuação alcança também empresas e consumidores em Direito Bancário, da revisão de contratos à defesa em ações de busca e apreensão e execução. O atendimento é totalmente digital, o que permite acompanhar casos em todo o Brasil sem que o cliente precise se deslocar.</p>
+          <ul class="cred-list">
+            <li>{tick} OAB/MG 200.037</li>
+            <li>{tick} CNPJ 39.991.601/0001-49</li>
+            <li>{tick} Segunda a Sexta, das 7h às 22h</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pilares" aria-labelledby="pilares-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <h2 id="pilares-title">O que nos move</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="pilar-grid">
+{pilares}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="cta-title">
+    <div class="container">
+      <h2 id="cta-title">Fale com a Dra. Vanira</h2>
+      <div class="rule" style="margin-inline:auto"></div>
+      <p>Nos envie uma mensagem contando sua situação ou fale direto pelo WhatsApp. Nossa equipe responde o mais breve possível.</p>
+      <a class="btn btn--whats" data-whats aria-label="Quero falar com a advogada pelo WhatsApp">
+        {wa} Quero falar com a advogada
+      </a>
+    </div>
+  </section>
+""".format(destaques=destaques, pilares=pilares, wa=WA, tick=TICK)
+
+    ld = [
+      {"@type": "AboutPage", "name": "Nosso Escritório",
+       "url": BASE + "/nosso-escritorio", "about": {"@id": FIRM_LD["@id"]}},
+      {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": BASE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Nosso Escritório",
+         "item": BASE + "/nosso-escritorio"}]},
+    ]
+    return page("Nosso Escritório | Vanira Araújo Advogados",
+                "Conheça a Vanira Araújo Advogados: escritório especializado em Direito Bancário "
+                "Rural com sede em Uberaba/MG, mais de 10 anos de atuação e atendimento digital "
+                "em todo o Brasil.",
+                "/nosso-escritorio", ld, body, current="escritorio",
+                preload="/hero-defesa-produtor-rural.jpg")
+
+
+# --------------------------------------------------------------------------
 # SINCRONIA DA HOME
 # A home (index.html) tem conteudo proprio (video, depoimentos, FAQ...), mas o
 # header e o rodape precisam bater com as areas. Aqui eles sao reescritos a
@@ -751,11 +884,13 @@ if __name__ == "__main__":
     for a in AREAS:
         w(a["slug"] + ".html", build_area(a))
     w("areas-de-atuacao.html", build_hub())
+    w("nosso-escritorio.html", build_escritorio())
     w("politica-de-privacidade.html", build_privacy())
     sync_home()
 
     hoje = datetime.date.today().isoformat()
-    urls = ["/", "/areas-de-atuacao"] + ["/" + a["slug"] for a in AREAS] + ["/politica-de-privacidade"]
+    urls = (["/", "/areas-de-atuacao", "/nosso-escritorio"]
+            + ["/" + a["slug"] for a in AREAS] + ["/politica-de-privacidade"])
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:

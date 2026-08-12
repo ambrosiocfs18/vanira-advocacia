@@ -300,27 +300,6 @@
   .service-card p { color: var(--grafite); font-size: 15px; }
   .service-card .link-arrow { margin-top: auto; }
 
-  /* ---------- DIFERENCIAIS ---------- */
-  .diferenciais { background: var(--off-white); }  /* faixa clara alternada */
-  .dif-grid { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
-  .dif-item {
-    display: flex; align-items: center; gap: var(--sp-3);
-    background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
-    padding: var(--sp-3) var(--sp-4); min-height: 76px;
-    box-shadow: var(--sh-card);
-    transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .dif-item:hover { transform: translateY(-3px); box-shadow: var(--sh-hover); }
-  }
-  .dif-check {
-    flex: 0 0 auto; width: 44px; height: 44px; border-radius: var(--r-pill);
-    background: var(--verde-profundo); color: var(--dourado-claro);
-    display: inline-flex; align-items: center; justify-content: center;
-  }
-  .dif-check svg { width: 22px; height: 22px; }
-  .dif-item span { font-weight: 600; font-size: 15px; color: var(--grafite); letter-spacing: .3px; }
-
   /* ---------- EQUIPE ---------- */
   .equipe { background: var(--branco); }
   .equipe .prose { max-width: 720px; }
@@ -947,3 +926,187 @@
   .wall-track { animation: none; padding-bottom: 0; }
   .wall-track .wall-card:nth-child(n+6) { display: none; }  /* esconde a 2ª cópia */
 }
+
+/* ==========================================================================
+   COMO TRABALHAMOS — cards verde-escuro sobre fundo claro
+   Bloco de maior contraste da home: o verde profundo entra em massa,
+   com numeração e ícones dourados.
+   ========================================================================== */
+.processo {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(198,145,42,0.10), transparent 60%),
+    var(--off-white);
+}
+.processo h2 em { font-style: italic; color: var(--dourado); }
+.proc-sub { color: var(--cinza-medio); font-size: 16px; margin-top: var(--sp-3); }
+
+.step-grid { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
+
+.step-card {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, var(--verde-profundo), var(--verde-escuro));
+  border-radius: var(--r-card);
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(0,48,24,0.18);
+  transition: transform .28s var(--ease-out), box-shadow .28s var(--ease-out);
+}
+/* Brilho dourado no topo do card */
+.step-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--dourado), var(--dourado-claro), transparent 70%);
+  opacity: .85;
+}
+@media (hover: hover) and (pointer: fine) {
+  .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0,48,24,0.28); }
+  .step-card:hover .step-icon { background: var(--dourado); color: var(--verde-profundo); }
+}
+.step-card:active { transform: scale(.99); }
+
+.step-num {
+  position: absolute; top: var(--sp-3); right: var(--sp-4);
+  font-family: var(--font-display); font-size: 46px; font-weight: 600;
+  color: rgba(232,178,55,0.20); line-height: 1;
+  pointer-events: none;
+}
+.step-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: var(--r-pill);
+  background: rgba(232,178,55,0.16); color: var(--dourado-claro);
+  margin-bottom: var(--sp-3);
+  transition: background .25s var(--ease-out), color .25s var(--ease-out);
+}
+.step-icon svg { width: 23px; height: 23px; }
+.step-card h3 { color: #fff; font-size: 20px; margin-bottom: var(--sp-2); }
+.step-card p { color: rgba(255,255,255,0.82); font-size: 14.5px; line-height: 1.6; }
+
+/* Cascata: cada card entra um pouco depois do anterior */
+.step-grid .reveal:nth-child(2) { transition-delay: .06s; }
+.step-grid .reveal:nth-child(3) { transition-delay: .12s; }
+.step-grid .reveal:nth-child(4) { transition-delay: .18s; }
+.step-grid .reveal:nth-child(5) { transition-delay: .24s; }
+.step-grid .reveal:nth-child(6) { transition-delay: .30s; }
+
+@media (min-width: 768px) { .step-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .step-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ==========================================================================
+   NOSSO ESCRITÓRIO
+   ========================================================================== */
+.destaques { background: var(--verde-profundo); padding-block: var(--sp-6); }
+.dest-grid { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
+.dest-card {
+  border: 1px solid rgba(232,178,55,0.28); border-radius: var(--r-card);
+  background: rgba(255,255,255,0.04);
+  padding: var(--sp-4);
+  transition: background .25s var(--ease-out), border-color .25s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dest-card:hover { background: rgba(255,255,255,0.08); border-color: var(--dourado); }
+}
+.dest-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: var(--r-pill);
+  background: rgba(232,178,55,0.18); color: var(--dourado-claro);
+  margin-bottom: var(--sp-3);
+}
+.dest-icon svg { width: 21px; height: 21px; }
+.dest-card h3 { color: #fff; font-size: 19px; margin-bottom: 6px; }
+.dest-card p { color: rgba(255,255,255,0.78); font-size: 14.5px; line-height: 1.55; }
+
+.esc-sobre { background: var(--branco); }
+.esc-grid { display: grid; gap: var(--sp-5); align-items: center; }
+.esc-media { margin: 0; max-width: 420px; }
+.esc-media img {
+  width: 100%; border-radius: var(--r-img); aspect-ratio: 4/5; object-fit: cover;
+  border: 3px solid var(--dourado); box-shadow: var(--sh-hover);
+}
+.esc-media figcaption {
+  margin-top: var(--sp-3); font-size: 14px; color: var(--cinza-medio); text-align: center;
+}
+.esc-sobre h2 { color: var(--verde-profundo); }
+.esc-sobre p { font-size: 17px; }
+
+.pilares { background: var(--off-white); }
+.pilar-grid { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+.pilar-card {
+  background: #fff; border: 1px solid var(--cinza-borda); border-radius: var(--r-card);
+  padding: var(--sp-5) var(--sp-4);
+  box-shadow: var(--sh-card);
+  border-top: 3px solid var(--dourado);
+  transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pilar-card:hover { transform: translateY(-5px); box-shadow: var(--sh-hover); }
+}
+.pilar-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 50px; height: 50px; border-radius: var(--r-pill);
+  background: var(--verde-profundo); color: var(--dourado-claro);
+  margin-bottom: var(--sp-3);
+}
+.pilar-icon svg { width: 25px; height: 25px; }
+.pilar-card h3 { color: var(--verde-profundo); font-size: 21px; margin-bottom: var(--sp-2); }
+.pilar-card p { color: var(--grafite); font-size: 15.5px; line-height: 1.65; }
+
+@media (min-width: 640px) { .dest-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 768px) {
+  .esc-grid { grid-template-columns: 380px 1fr; gap: var(--sp-6); }
+  .pilar-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) { .dest-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* ==========================================================================
+   MAIS CONTRASTE VERDE
+   A faixa de CTA e o "Ao lado do produtor" passam a ser verde profundo,
+   criando alternância clara/escura ao longo da página em vez de tudo claro.
+   ========================================================================== */
+.cta-band {
+  background:
+    radial-gradient(110% 130% at 12% 0%, rgba(232,178,55,0.16), transparent 55%),
+    linear-gradient(160deg, var(--verde-profundo), var(--verde-escuro));
+  color: #fff;
+}
+.cta-band h2 { color: #fff; }
+.cta-band p { color: rgba(255,255,255,0.85); }
+
+.sobre {
+  background:
+    radial-gradient(110% 130% at 88% 0%, rgba(232,178,55,0.14), transparent 55%),
+    linear-gradient(160deg, var(--verde-escuro), var(--verde-profundo));
+  color: #fff;
+}
+.sobre h2 { color: #fff; }
+.sobre p { color: rgba(255,255,255,0.85); }
+
+/* Régua dourada mais viva sobre fundo escuro */
+.cta-band .rule, .sobre .rule, .page-hero--media .rule, .destaques .rule {
+  background: linear-gradient(90deg, var(--dourado-claro), var(--dourado));
+}
+
+/* ==========================================================================
+   CONTATO FINAL EM VERDE — fecha o ciclo, como pede o design system
+   ========================================================================== */
+.contato {
+  background:
+    radial-gradient(110% 120% at 90% 0%, rgba(232,178,55,0.16), transparent 55%),
+    linear-gradient(160deg, var(--verde-profundo), var(--verde-escuro));
+  color: #fff;
+}
+.contato h2 { color: #fff; }
+.contato .eyebrow { color: var(--dourado-claro); }
+.contato .contato-lead { color: rgba(255,255,255,0.88); }
+.contato .rule { background: linear-gradient(90deg, var(--dourado-claro), var(--dourado)); }
+/* O cartão do formulário fica branco sobre o verde, ganhando destaque */
+.contato .form-card { box-shadow: 0 18px 44px rgba(0,0,0,0.28); }
+
+/* ==========================================================================
+   BARRA DE PROGRESSO DE LEITURA
+   ========================================================================== */
+.read-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--dourado), var(--dourado-claro));
+  z-index: 130; pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .read-progress { display: none; } }

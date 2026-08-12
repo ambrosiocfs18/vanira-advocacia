@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  /* Preferência de movimento reduzido: consultada uma vez e usada em todo o arquivo */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* Contato — WhatsApp em formato internacional, só dígitos (55 + DDD + número) */
   var WHATSAPP_NUMBER = '5534997965600';
   var WHATSAPP_MSG = 'Olá! Gostaria de falar com a Dra. Vanira sobre minha dívida rural. Pode me ajudar?';
@@ -26,7 +29,9 @@
      começados com "/" apontariam de volta para o próprio subdomínio.
      Aqui eles são reescritos para o domínio principal. Inerte fora
      de um subdomínio de área. */
-  var AREA_SLUGS = ['prorrogacao', 'recuperacao-extrajudicial', 'recuperacao-judicial', 'defesa-produtor-rural'];
+  var AREA_SLUGS = ['prorrogacao', 'recuperacao-extrajudicial', 'recuperacao-judicial',
+                    'defesa-produtor-rural', 'busca-apreensao-veiculos', 'busca-apreensao-maquinas',
+                    'suspensao-leilao-imoveis', 'revisao-contratos-pj', 'reestruturacao-financeira'];
   (function () {
     var host = window.location.hostname;
     var apex = null;
@@ -42,6 +47,29 @@
       a.setAttribute('href', window.location.protocol + '//' + apex + a.getAttribute('href'));
     });
   })();
+
+  /* ---------- Barra de progresso de leitura ----------
+     Mostra o quanto da página já foi percorrido. A escrita é feita dentro
+     de requestAnimationFrame e só toca em transform, para não custar
+     layout durante a rolagem. Desativada em movimento reduzido. */
+  if (!reduce) {
+    var bar = document.createElement('div');
+    bar.className = 'read-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    var pintar = function () {
+      var alcance = document.documentElement.scrollHeight - window.innerHeight;
+      var p = alcance > 0 ? Math.min(window.scrollY / alcance, 1) : 0;
+      bar.style.transform = 'scaleX(' + p + ')';
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(pintar); }
+    }, { passive: true });
+    pintar();
+  }
 
   /* ---------- Header: sombra ao rolar ---------- */
   var header = document.querySelector('.site-header');
@@ -153,7 +181,6 @@
   }
 
   /* ---------- Scroll reveal (IntersectionObserver) ---------- */
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var revealEls = document.querySelectorAll('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
     Array.prototype.forEach.call(revealEls, function (el) { el.classList.add('is-visible'); });
