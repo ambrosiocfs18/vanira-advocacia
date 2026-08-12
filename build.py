@@ -576,7 +576,19 @@ def build_area(a):
 # --------------------------------------------------------------------------
 # HUB: TODAS AS AREAS
 # --------------------------------------------------------------------------
+def slugify_grupo(g):
+    tabela = {"Dívida Rural": "divida-rural", "Defesa de Bens": "defesa-de-bens",
+              "Empresas": "empresas"}
+    return tabela.get(g, g.lower().replace(" ", "-"))
+
+
 def build_hub():
+    # Atalhos: com 9 áreas, pular direto para a categoria certa é navegação real
+    chips = "\n".join(
+        '          <a class="chip" href="#%s">%s <span class="chip-n">%d</span></a>'
+        % (slugify_grupo(g), g, len([a for a in AREAS if a["grupo"] == g]))
+        for g in GRUPOS)
+
     blocos = []
     for g in GRUPOS:
         cards = []
@@ -587,25 +599,31 @@ def build_hub():
             if a["slug"] == "revisao-contratos-pj":
                 extra = ('\n            <ul class="card-sub">%s</ul>'
                          % "".join('<li>%s</li>' % s for s in a["servicos"]))
-            cards.append(u"""        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true">{icon}</span>
-          <h3>{nav}</h3>
-          <p>{lead}</p>{extra}
-          <a class="link-arrow" href="/{slug}" aria-label="Saiba mais sobre {nav}">Saiba mais
-            {arrow}
-          </a>
+            # O card inteiro é clicável: o link cobre a área com ::after,
+            # mantendo um único alvo de foco para o teclado.
+            cards.append(u"""        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-{slug}.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true">{icon}</span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/{slug}">{nav}</a></h3>
+            <p>{lead}</p>{extra}
+            <span class="area-card__cta" aria-hidden="true">Saiba mais {arrow}</span>
+          </div>
         </article>""".format(icon=IC[a["icon"]], nav=a["nav"], lead=a["lead"],
                              slug=a["slug"], arrow=ARROW_SM, extra=extra))
-        blocos.append(u"""      <div class="area-group">
+        blocos.append(u"""      <div class="area-group" id="{gid}">
         <h2 class="group-title">{g}</h2>
         <div class="rule"></div>
       </div>
-      <div class="cards-grid">
+      <div class="area-grid">
 {cards}
-      </div>""".format(g=g, cards="\n".join(cards)))
+      </div>""".format(g=g, gid=slugify_grupo(g), cards="\n".join(cards)))
 
     body = u"""
-  <section class="page-hero" aria-labelledby="page-title">
+  <section class="page-hero page-hero--media" aria-labelledby="page-title"
+           style="--hero-img:url('/hero-prorrogacao.jpg')">
     <div class="container">
       <nav class="breadcrumb" aria-label="Você está aqui">
         <ol>
@@ -616,6 +634,9 @@ def build_hub():
       <h1 id="page-title">Áreas de Atuação</h1>
       <div class="rule"></div>
       <p class="lead">O escritório atua em Direito Bancário e Direito do Agronegócio, da negociação com o banco até a defesa em juízo. Escolha abaixo a área que trata da sua situação.</p>
+      <nav class="chips" aria-label="Ir para uma categoria">
+{chips}
+      </nav>
     </div>
   </section>
 
@@ -635,7 +656,7 @@ def build_hub():
       </a>
     </div>
   </section>
-""".format(blocos="\n\n".join(blocos), attorney=attorney_block(), wa=WA)
+""".format(blocos="\n\n".join(blocos), chips=chips, attorney=attorney_block(), wa=WA)
 
     ld = [
       {"@type": "CollectionPage", "name": "Áreas de Atuação",
@@ -651,7 +672,8 @@ def build_hub():
                 "Direito Bancário e do Agronegócio: dívida rural, recuperação judicial e "
                 "extrajudicial, busca e apreensão de veículos e máquinas, revisão de contratos "
                 "de pessoa jurídica e reestruturação financeira.",
-                "/areas-de-atuacao", ld, body, current="areas")
+                "/areas-de-atuacao", ld, body, current="areas",
+                preload="/hero-prorrogacao.jpg")
 
 
 # --------------------------------------------------------------------------

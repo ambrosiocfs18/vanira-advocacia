@@ -105,6 +105,7 @@
 }
 </script>
 <link rel="stylesheet" href="/styles.css">
+<link rel="preload" as="image" href="/hero-prorrogacao.jpg" fetchpriority="high">
 <script src="/main.js" defer></script>
 </head>
 <body>
@@ -205,7 +206,8 @@
 
 <main id="main">
 
-  <section class="page-hero" aria-labelledby="page-title">
+  <section class="page-hero page-hero--media" aria-labelledby="page-title"
+           style="--hero-img:url('/hero-prorrogacao.jpg')">
     <div class="container">
       <nav class="breadcrumb" aria-label="Você está aqui">
         <ol>
@@ -216,102 +218,134 @@
       <h1 id="page-title">Áreas de Atuação</h1>
       <div class="rule"></div>
       <p class="lead">O escritório atua em Direito Bancário e Direito do Agronegócio, da negociação com o banco até a defesa em juízo. Escolha abaixo a área que trata da sua situação.</p>
+      <nav class="chips" aria-label="Ir para uma categoria">
+          <a class="chip" href="#divida-rural">Dívida Rural <span class="chip-n">4</span></a>
+          <a class="chip" href="#defesa-de-bens">Defesa de Bens <span class="chip-n">3</span></a>
+          <a class="chip" href="#empresas">Empresas <span class="chip-n">2</span></a>
+      </nav>
     </div>
   </section>
 
   <section class="areas" aria-label="Lista de áreas de atuação">
     <div class="container">
-      <div class="area-group">
+      <div class="area-group" id="divida-rural">
         <h2 class="group-title">Dívida Rural</h2>
         <div class="rule"></div>
       </div>
-      <div class="cards-grid">
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span>
-          <h3>Prorrogação e Alongamento de Dívida Rural</h3>
-          <p>Renegociação de contratos de crédito rural afetados por fatores alheios à vontade do produtor, como quebra de safra, estiagem, geada ou queda abrupta de preços. Atuação com base no MCR (Manual de Crédito Rural) para alongar prazos e reduzir o peso da dívida sem comprometer a continuidade da atividade.</p>
-          <a class="link-arrow" href="/prorrogacao" aria-label="Saiba mais sobre Prorrogação e Alongamento de Dívida Rural">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+      <div class="area-grid">
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-prorrogacao.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/prorrogacao">Prorrogação e Alongamento de Dívida Rural</a></h3>
+            <p>Renegociação de contratos de crédito rural afetados por fatores alheios à vontade do produtor, como quebra de safra, estiagem, geada ou queda abrupta de preços. Atuação com base no MCR (Manual de Crédito Rural) para alongar prazos e reduzir o peso da dívida sem comprometer a continuidade da atividade.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.4 8.4 0 01-3.6-.8L3 20.5l1.4-5.4A8.4 8.4 0 1121 11.5z"/></svg></span>
-          <h3>Recuperação Extrajudicial (Recuperação Branca)</h3>
-          <p>Negociação direta com instituições financeiras antes de qualquer processo judicial, buscando acordo, redução de encargos e reestruturação de dívida de forma rápida e discreta, preservando o relacionamento do produtor com o banco e evitando desgaste desnecessário.</p>
-          <a class="link-arrow" href="/recuperacao-extrajudicial" aria-label="Saiba mais sobre Recuperação Extrajudicial (Recuperação Branca)">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-recuperacao-extrajudicial.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.4 8.4 0 01-3.6-.8L3 20.5l1.4-5.4A8.4 8.4 0 1121 11.5z"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/recuperacao-extrajudicial">Recuperação Extrajudicial (Recuperação Branca)</a></h3>
+            <p>Negociação direta com instituições financeiras antes de qualquer processo judicial, buscando acordo, redução de encargos e reestruturação de dívida de forma rápida e discreta, preservando o relacionamento do produtor com o banco e evitando desgaste desnecessário.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 7l-3 6a3 3 0 006 0L6 7z"/><path d="M18 7l-3 6a3 3 0 006 0l-3-6z"/><path d="M7 7h10"/><path d="M8 21h8"/></svg></span>
-          <h3>Recuperação Judicial</h3>
-          <p>Quando a negociação direta não é suficiente, atuamos na condução do processo de recuperação judicial do produtor rural, garantindo a suspensão de execuções, a proteção do patrimônio produtivo e um plano de pagamento viável para a continuidade da atividade.</p>
-          <a class="link-arrow" href="/recuperacao-judicial" aria-label="Saiba mais sobre Recuperação Judicial">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-recuperacao-judicial.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 7l-3 6a3 3 0 006 0L6 7z"/><path d="M18 7l-3 6a3 3 0 006 0l-3-6z"/><path d="M7 7h10"/><path d="M8 21h8"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/recuperacao-judicial">Recuperação Judicial</a></h3>
+            <p>Quando a negociação direta não é suficiente, atuamos na condução do processo de recuperação judicial do produtor rural, garantindo a suspensão de execuções, a proteção do patrimônio produtivo e um plano de pagamento viável para a continuidade da atividade.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></span>
-          <h3>Defesa do Produtor Rural</h3>
-          <p>Representação em ações revisionais, execuções e demais disputas envolvendo bancos e instituições financeiras, com foco na proteção do bem de família, dos maquinários e da terra produtiva.</p>
-          <a class="link-arrow" href="/defesa-produtor-rural" aria-label="Saiba mais sobre Defesa do Produtor Rural">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-defesa-produtor-rural.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/defesa-produtor-rural">Defesa do Produtor Rural</a></h3>
+            <p>Representação em ações revisionais, execuções e demais disputas envolvendo bancos e instituições financeiras, com foco na proteção do bem de família, dos maquinários e da terra produtiva.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
       </div>
 
-      <div class="area-group">
+      <div class="area-group" id="defesa-de-bens">
         <h2 class="group-title">Defesa de Bens</h2>
         <div class="rule"></div>
       </div>
-      <div class="cards-grid">
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14"/><path d="M4 17v-4l2-5h12l2 5v4"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
-          <h3>Busca e Apreensão de Veículos</h3>
-          <p>Defesa em ações de busca e apreensão movidas por bancos e financeiras em contratos com alienação fiduciária. Atuamos em favor do consumidor com o objetivo de buscar a devolução do veículo ou evitar que você perca o veículo para o banco.</p>
-          <a class="link-arrow" href="/busca-apreensao-veiculos" aria-label="Saiba mais sobre Busca e Apreensão de Veículos">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+      <div class="area-grid">
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-busca-apreensao-veiculos.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14"/><path d="M4 17v-4l2-5h12l2 5v4"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/busca-apreensao-veiculos">Busca e Apreensão de Veículos</a></h3>
+            <p>Defesa em ações de busca e apreensão movidas por bancos e financeiras em contratos com alienação fiduciária. Atuamos em favor do consumidor com o objetivo de buscar a devolução do veículo ou evitar que você perca o veículo para o banco.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="16.5" r="3.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M4 13V8h5l2 5"/><path d="M11 8h4l1 5"/></svg></span>
-          <h3>Busca e Apreensão de Máquinas Agrícolas</h3>
-          <p>Defesa em ações de busca e apreensão que envolvem tratores, colheitadeiras, pulverizadores e demais implementos financiados com alienação fiduciária. A perda do maquinário interrompe a safra, por isso a defesa precisa ser rápida e técnica, com análise do contrato e dos requisitos legais da ação.</p>
-          <a class="link-arrow" href="/busca-apreensao-maquinas" aria-label="Saiba mais sobre Busca e Apreensão de Máquinas Agrícolas">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-busca-apreensao-maquinas.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="16.5" r="3.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M4 13V8h5l2 5"/><path d="M11 8h4l1 5"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/busca-apreensao-maquinas">Busca e Apreensão de Máquinas Agrícolas</a></h3>
+            <p>Defesa em ações de busca e apreensão que envolvem tratores, colheitadeiras, pulverizadores e demais implementos financiados com alienação fiduciária. A perda do maquinário interrompe a safra, por isso a defesa precisa ser rápida e técnica, com análise do contrato e dos requisitos legais da ação.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5.5h5V20"/></svg></span>
-          <h3>Suspensão de Leilão de Imóveis</h3>
-          <p>Atuação para suspender o leilão de imóveis urbanos e rurais levados a hasta pública em execuções de dívida bancária, financiamento imobiliário e hipotecas. Buscamos suspender o leilão, discutir o valor cobrado e preservar o imóvel, seja a moradia da família ou a terra produtiva.</p>
-          <a class="link-arrow" href="/suspensao-leilao-imoveis" aria-label="Saiba mais sobre Suspensão de Leilão de Imóveis">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-suspensao-leilao-imoveis.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5.5h5V20"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/suspensao-leilao-imoveis">Suspensão de Leilão de Imóveis</a></h3>
+            <p>Atuação para suspender o leilão de imóveis urbanos e rurais levados a hasta pública em execuções de dívida bancária, financiamento imobiliário e hipotecas. Buscamos suspender o leilão, discutir o valor cobrado e preservar o imóvel, seja a moradia da família ou a terra produtiva.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
       </div>
 
-      <div class="area-group">
+      <div class="area-group" id="empresas">
         <h2 class="group-title">Empresas</h2>
         <div class="rule"></div>
       </div>
-      <div class="cards-grid">
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>
-          <h3>Revisão de Contratos de Pessoa Jurídica</h3>
-          <p>Análise técnica dos contratos bancários da empresa para identificar juros, encargos e cláusulas em desacordo com o que foi contratado. A revisão alcança as principais linhas de crédito tomadas por pessoa jurídica e serve de base tanto para renegociação quanto para defesa em cobrança.</p>
+      <div class="area-grid">
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-revisao-contratos-pj.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/revisao-contratos-pj">Revisão de Contratos de Pessoa Jurídica</a></h3>
+            <p>Análise técnica dos contratos bancários da empresa para identificar juros, encargos e cláusulas em desacordo com o que foi contratado. A revisão alcança as principais linhas de crédito tomadas por pessoa jurídica e serve de base tanto para renegociação quanto para defesa em cobrança.</p>
             <ul class="card-sub"><li>Capital de giro</li><li>Empréstimo FGI e FGO</li><li>Empréstimo Pronamp</li><li>Empréstimo BNDES</li></ul>
-          <a class="link-arrow" href="/revisao-contratos-pj" aria-label="Saiba mais sobre Revisão de Contratos de Pessoa Jurídica">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
-        <article class="service-card reveal">
-          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg></span>
-          <h3>Reestruturação Financeira de Produtor Rural e Empresas</h3>
-          <p>Reorganização do endividamento de produtores rurais e empresas a partir de um diagnóstico completo das dívidas e dos contratos existentes. O trabalho reúne renegociação com os credores e a construção de um plano de pagamento compatível com o caixa, para que a atividade continue operando durante a reestruturação.</p>
-          <a class="link-arrow" href="/reestruturacao-financeira" aria-label="Saiba mais sobre Reestruturação Financeira de Produtor Rural e Empresas">Saiba mais
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <article class="area-card reveal">
+          <div class="area-card__media">
+            <img src="/thumb-reestruturacao-financeira.jpg" alt="" width="560" height="320" loading="lazy" decoding="async">
+            <span class="area-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 16V9M12 16V5M17 16v-4"/></svg></span>
+          </div>
+          <div class="area-card__body">
+            <h3><a href="/reestruturacao-financeira">Reestruturação Financeira de Produtor Rural e Empresas</a></h3>
+            <p>Reorganização do endividamento de produtores rurais e empresas a partir de um diagnóstico completo das dívidas e dos contratos existentes. O trabalho reúne renegociação com os credores e a construção de um plano de pagamento compatível com o caixa, para que a atividade continue operando durante a reestruturação.</p>
+            <span class="area-card__cta" aria-hidden="true">Saiba mais <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </article>
       </div>
     </div>
