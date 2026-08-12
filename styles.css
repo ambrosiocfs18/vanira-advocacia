@@ -1091,6 +1091,59 @@
 }
 
 /* ==========================================================================
+   NÚMEROS DO ESCRITÓRIO — faixa entre o FAQ e o blog
+   As duas seções vizinhas são brancas, então a faixa entra em verde para
+   dar respiro e destacar os números, mesmo recurso de .sobre e .cta-band.
+   Sem cartões: o espaçamento e o fio dourado já agrupam, e caixa em volta
+   de cada número só acrescentaria ruído.
+   ========================================================================== */
+.numeros {
+  background:
+    radial-gradient(110% 130% at 88% 0%, rgba(232,178,55,0.14), transparent 55%),
+    linear-gradient(160deg, var(--verde-escuro), var(--verde-profundo));
+  color: #fff;
+}
+.numeros h2 { color: #fff; }
+.numeros .rule { background: linear-gradient(90deg, var(--dourado-claro), var(--dourado)); }
+
+.num-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-6) var(--sp-4); margin: 0;
+}
+.num-item { text-align: center; }
+
+.num-valor {
+  display: block; margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 10vw, 60px); font-weight: 700; line-height: 1;
+  color: var(--dourado-claro);
+  /* tnum: largura fixa por dígito, senão o número treme enquanto sobe.
+     lnum: a fonte display usa algarismos antigos por padrão (o 1, o 2 e o 0
+     ficam baixinhos ao lado do 8 — medido, 11px de diferença de altura), o
+     que numa faixa de números fica visivelmente torto. lnum pede a versão
+     de altura uniforme. Onde a fonte não tiver o recurso, os algarismos já
+     são uniformes e a declaração é inócua. */
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+.num-item dt {
+  margin-top: var(--sp-2);
+  color: rgba(255,255,255,0.82);
+  font-size: 14.5px; line-height: 1.45;
+  /* Em telas de 360px "Anos de experiência" quebra em duas linhas; balance
+     reparte as palavras em vez de deixar uma órfã embaixo. */
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .num-grid { grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  /* Fio dourado separando as colunas, no lugar de quatro caixas */
+  .num-item + .num-item { border-left: 1px solid rgba(232,178,55,0.28); }
+  .num-valor { font-size: clamp(44px, 4.6vw, 64px); }
+  .num-item dt { font-size: 15.5px; }
+}
+
+/* ==========================================================================
    VÍDEO DA DRA. VANIRA — fachada com capa local
    O iframe do YouTube não existe no HTML: o que aparece é uma capa hospedada
    aqui com um botão. O player só é criado no clique (main.js), então a página

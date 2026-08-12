@@ -260,4 +260,55 @@
       frame.focus();
     });
   });
+
+  /* ---------- Números do escritório subindo de zero ----------
+     O HTML já traz o valor final escrito, então quem está sem JS, com o
+     script bloqueado ou pedindo menos movimento lê o número correto do
+     mesmo jeito. A contagem só entra por cima disso, e só quando a faixa
+     aparece na tela — animar fora de vista seria animar para ninguém. */
+  var numeros = document.querySelectorAll('[data-contar]');
+  if (numeros.length) {
+    /* 1200 -> "1.200", sem depender de locale do navegador */
+    var milhar = function (n) {
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
+    var contar = function (el) {
+      var alvo = parseInt(el.getAttribute('data-contar'), 10);
+      var prefixo = el.getAttribute('data-prefixo') || '';
+      if (isNaN(alvo)) return;
+
+      var DURACAO = 1600;
+      var inicio = null;
+
+      var passo = function (agora) {
+        if (inicio === null) inicio = agora;
+        var t = Math.min((agora - inicio) / DURACAO, 1);
+        /* ease-out: arranca rápido e assenta no fim, em vez de parar seco */
+        var e = 1 - Math.pow(1 - t, 3);
+        el.textContent = prefixo + milhar(Math.round(alvo * e));
+        if (t < 1) requestAnimationFrame(passo);
+      };
+
+      requestAnimationFrame(passo);
+    };
+
+    if (reduce || !('IntersectionObserver' in window) ||
+        !('requestAnimationFrame' in window)) {
+      /* Nada a fazer: o valor final já está no HTML. */
+    } else {
+      var ioNum = new IntersectionObserver(function (entradas) {
+        Array.prototype.forEach.call(entradas, function (entrada) {
+          if (!entrada.isIntersecting) return;
+          ioNum.unobserve(entrada.target);
+          contar(entrada.target);
+        });
+      }, { threshold: 0.4 });
+
+      Array.prototype.forEach.call(numeros, function (el) {
+        el.textContent = (el.getAttribute('data-prefixo') || '') + '0';
+        ioNum.observe(el);
+      });
+    }
+  }
 })();
