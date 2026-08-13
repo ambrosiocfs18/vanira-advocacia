@@ -277,7 +277,12 @@ def head(title, desc, path, ld_graph, preload=None):
 {ld}
 </script>
 <link rel="stylesheet" href="/styles.css">{pre}
-<script src="/main.js" defer></script>""".format(
+<script src="/main.js" defer></script>
+<!-- Medicao de audiencia da propria Vercel: sem cookie, sem identificador
+     persistente e servida do proprio dominio (/_vercel/insights), entao a
+     pagina continua sem requisicao a terceiros. So passa a coletar depois
+     de habilitar Web Analytics no painel da Vercel. -->
+<script defer src="/_vercel/insights/script.js"></script>""".format(
         title=title, desc=desc, url=url, base=BASE, pre=pre,
         ld=json.dumps({"@context": "https://schema.org", "@graph": ld_graph},
                       ensure_ascii=False, indent=1))
@@ -785,6 +790,7 @@ def build_privacy():
       <h2>Cookies e medição de audiência</h2>
       <p>O site é estático e não instala cookies de rastreamento ou de publicidade. O vídeo de apresentação e as imagens são servidos pelo próprio site.</p>
       <p>Algumas páginas trazem vídeos da Dra. Vanira publicados no YouTube. O player não é carregado junto com a página: enquanto você não clicar em reproduzir, nenhuma informação sua é enviada ao YouTube. Ao clicar, o vídeo passa a ser carregado pelo YouTube (Google) no modo de privacidade reforçada (<span lang="en">youtube-nocookie</span>), e a partir daí valem também os termos e a política de privacidade do Google. Se preferir não acionar o player, o conteúdo do vídeo é sempre explicado em texto na própria página e pelo WhatsApp.</p>
+      <p>Para saber quantas pessoas visitam cada página, usamos a medição de audiência da Vercel, empresa que hospeda o site. Ela é agregada e anônima: não instala cookie, não cria identificador permanente e não permite reconhecer você entre uma visita e outra nem em outros sites. O script é servido pelo próprio endereço deste site, e não por um domínio de terceiros.</p>
 
       <h2>Alterações</h2>
       <p>Esta política pode ser atualizada para refletir mudanças no site ou na legislação. A versão vigente é sempre a publicada nesta página.</p>

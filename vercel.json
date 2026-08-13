@@ -5,23 +5,93 @@
   "rewrites": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "prorrogacao\\..+" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "prorrogacao\\..+"
+        }
+      ],
       "destination": "/prorrogacao"
     },
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "recuperacao-extrajudicial\\..+" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "recuperacao-extrajudicial\\..+"
+        }
+      ],
       "destination": "/recuperacao-extrajudicial"
     },
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "recuperacao-judicial\\..+" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "recuperacao-judicial\\..+"
+        }
+      ],
       "destination": "/recuperacao-judicial"
     },
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "defesa-produtor-rural\\..+" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "defesa-produtor-rural\\..+"
+        }
+      ],
       "destination": "/defesa-produtor-rural"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "busca-apreensao-veiculos\\..+"
+        }
+      ],
+      "destination": "/busca-apreensao-veiculos"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "busca-apreensao-maquinas\\..+"
+        }
+      ],
+      "destination": "/busca-apreensao-maquinas"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "suspensao-leilao-imoveis\\..+"
+        }
+      ],
+      "destination": "/suspensao-leilao-imoveis"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "revisao-contratos-pj\\..+"
+        }
+      ],
+      "destination": "/revisao-contratos-pj"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "reestruturacao-financeira\\..+"
+        }
+      ],
+      "destination": "/reestruturacao-financeira"
     }
   ]
 }

@@ -3,6 +3,8 @@ ChatGPT Image*.png
 WhatsApp Image*.jpeg
 COPY.txt
 DESIGN SYSTEM.txt
+CONTEXTO-PROJETO.md
+README.md
 .claude/
 build.py
 img-src/

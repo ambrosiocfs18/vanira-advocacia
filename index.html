@@ -158,6 +158,11 @@
 
 <link rel="stylesheet" href="/styles.css">
 <script src="/main.js" defer></script>
+<!-- Medicao de audiencia da propria Vercel: sem cookie, sem identificador
+     persistente e servida do proprio dominio (/_vercel/insights), entao a
+     pagina continua sem requisicao a terceiros. So passa a coletar depois
+     de habilitar Web Analytics no painel da Vercel. -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -804,7 +809,7 @@
   <section class="blog" id="blog" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-head center reveal">
-        <h2 id="blog-title">Artigos e Notícias</h2>
+        <h2 id="blog-title">Entenda seus direitos</h2>
         <div class="rule"></div>
       </div>
 
@@ -812,7 +817,7 @@
         <article class="post-card reveal">
           <span class="post-tag">Crédito Rural</span>
           <h3>Prorrogação de Dívida de Crédito Rural: o que diz o MCR e quando o produtor tem direito</h3>
-          <a class="link-arrow" href="#contato">Ler artigo
+          <a class="link-arrow" href="/prorrogacao">Ver a área de Prorrogação
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </article>
@@ -820,14 +825,14 @@
         <article class="post-card reveal">
           <span class="post-tag">Recuperação</span>
           <h3>Recuperação Judicial x Recuperação Extrajudicial: qual o caminho certo para o produtor rural endividado?</h3>
-          <a class="link-arrow" href="#contato">Ler artigo
+          <a class="link-arrow" href="/areas-de-atuacao#divida-rural">Comparar as duas áreas
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </article>
       </div>
 
       <div class="center" style="text-align:center">
-        <a class="link-arrow" href="#blog" style="margin-inline:auto">Ver todas as postagens
+        <a class="link-arrow" href="/areas-de-atuacao" style="margin-inline:auto">Ver todas as áreas de atuação
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>

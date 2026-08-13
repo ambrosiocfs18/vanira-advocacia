@@ -176,7 +176,31 @@
       var texto = 'Olá! Meu nome é ' + nome + '.'
         + (whats ? ' Meu WhatsApp: ' + whats + '.' : '')
         + (msg ? ' ' + msg : ' Gostaria de falar com a Dra. Vanira sobre minha dívida rural.');
-      window.open(whatsUrl(texto), '_blank', 'noopener');
+
+      var url = whatsUrl(texto);
+      var janela = window.open(url, '_blank', 'noopener');
+
+      /* Bloqueador de pop-up devolve null (ou uma janela que fecha na hora).
+         Sem isto o visitante preenche o formulário, clica em enviar e não
+         acontece nada — o contato se perde sem ninguém ficar sabendo.
+         Nesse caso mostramos um link direto, que é um clique do próprio
+         usuário e por isso nunca é bloqueado. */
+      var bloqueado = !janela || janela.closed || typeof janela.closed === 'undefined';
+      if (!bloqueado) return;
+
+      var aviso = document.getElementById('form-fallback');
+      if (!aviso) {
+        aviso = document.createElement('p');
+        aviso.id = 'form-fallback';
+        aviso.className = 'form-fallback';
+        aviso.setAttribute('role', 'alert');
+        form.appendChild(aviso);
+      }
+      aviso.innerHTML = 'Seu navegador bloqueou a abertura do WhatsApp. ' +
+        '<a target="_blank" rel="noopener noreferrer">Toque aqui para abrir a conversa</a>.';
+      var link = aviso.querySelector('a');
+      link.setAttribute('href', url);
+      link.focus();
     });
   }
 
